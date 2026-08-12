@@ -1,0 +1,16 @@
+---
+import { ArrowUpRight } from '@lucide/astro';
+
+interface Props {
+  href: string;
+  label?: string;
+  class?: string;
+}
+
+const { href, label, class: className = '' } = Astro.props;
+---
+
+<a class:list={['text-link', className]} href={href} target="_blank" rel="noreferrer">
+  <slot>{label}</slot>
+  <ArrowUpRight size={14} stroke-width={1.8} aria-hidden="true" />
+</a>

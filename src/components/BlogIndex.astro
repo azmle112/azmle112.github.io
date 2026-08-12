@@ -1,0 +1,23 @@
+---
+import { getCollection } from 'astro:content';
+import type { Locale } from '../data/profile';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BlogCard from './BlogCard.astro';
+import InnerHero from './InnerHero.astro';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const posts = (await getCollection('blog', ({ data }) => data.lang === locale && !data.draft)).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const title = locale === 'zh' ? '文章 | 陈旺' : 'Notes | Wang Chen';
+const description = locale === 'zh' ? '关于多模态模型、长视频理解与研究系统的技术笔记。' : 'Technical notes on multimodal models, long-video understanding, and research systems.';
+---
+<BaseLayout title={title} description={description} locale={locale}>
+  <InnerHero eyebrow="Blog" title={locale === 'zh' ? '研究笔记' : 'Research notes'} description={locale === 'zh' ? '记录论文之外仍值得讲清楚的技术细节。文章保留来源、版本和仍未解决的疑问。' : 'Technical details worth explaining beyond papers, with sources, versions, and open questions kept visible.'} />
+  <section class="blog-index shell">
+    <div class="blog-index-meta">
+      <p>{locale === 'zh' ? `共 ${posts.length} 篇` : `${posts.length} posts`}</p>
+      <p>{locale === 'zh' ? '按时间倒序' : 'Newest first'}</p>
+    </div>
+    <div class="blog-index-list">{posts.map((post) => <BlogCard post={post} locale={locale} />)}</div>
+  </section>
+</BaseLayout>

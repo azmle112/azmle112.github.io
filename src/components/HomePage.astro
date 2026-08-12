@@ -1,0 +1,168 @@
+---
+import { ArrowRight, BookOpen, Download, GraduationCap, Mail, MapPin } from '@lucide/astro';
+import { getCollection } from 'astro:content';
+import type { Locale } from '../data/profile';
+import { experience, links, news, ongoing, profile, publications, researchSteps } from '../data/profile';
+import { localePath, localize, t } from '../lib/i18n';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BlogCard from './BlogCard.astro';
+import ExternalLink from './ExternalLink.astro';
+import PublicationRow from './PublicationRow.astro';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const copy = t(locale);
+const allPosts = await getCollection('blog', ({ data }) => data.lang === locale && !data.draft);
+const posts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 2);
+const pageTitle = locale === 'zh' ? '陈旺 | 多模态与长视频理解' : 'Wang Chen | Multimodal and Long-Video Understanding';
+const description = localize(profile.intro, locale);
+---
+
+<BaseLayout title={pageTitle} description={description} locale={locale}>
+  <section class="hero shell" aria-labelledby="hero-name">
+    <div class="hero-copy">
+      <p class="eyebrow">{copy.profileLabel}</p>
+      <h1 id="hero-name">
+        <span>{localize(profile.name, locale)}</span>
+        <small>{locale === 'zh' ? profile.nameLatin : '陈旺'}</small>
+      </h1>
+      <p class="hero-role">{localize(profile.title, locale)}</p>
+      <p class="hero-intro">{localize(profile.intro, locale)}</p>
+      <div class="hero-links">
+        <ExternalLink href={links.scholar}>{copy.scholar}</ExternalLink>
+        <a class="text-link" href={links.email}><Mail size={16} stroke-width={1.8} aria-hidden="true" />{copy.email}</a>
+        <a class="text-link" href={links.cv} target="_blank"><Download size={16} stroke-width={1.8} aria-hidden="true" />{copy.cv}</a>
+      </div>
+      <div class="hero-footnotes">
+        <span><MapPin size={15} stroke-width={1.8} aria-hidden="true" />Xiamen, China</span>
+        <span>{localize(profile.internship, locale)}</span>
+      </div>
+    </div>
+    <figure class="portrait">
+      <div class="portrait-frame">
+        <img src="/images/wang-chen-outdoors.jpg" alt={locale === 'zh' ? '陈旺在山湖边的个人照片' : 'Wang Chen by a mountain lake'} width="1200" height="1600" fetchpriority="high" />
+      </div>
+      <figcaption>
+        <span>Wang Chen</span>
+        <span>{locale === 'zh' ? '研究与生活' : 'Research & life'}</span>
+      </figcaption>
+    </figure>
+    <div class="hero-vision">
+      <p class="eyebrow">{copy.visionLabel}</p>
+      <h2>{localize(profile.visionTitle, locale)}</h2>
+      <p>{localize(profile.vision, locale)}</p>
+    </div>
+  </section>
+
+  <section class="section research-map-section" aria-labelledby="research-map-title">
+    <div class="shell">
+      <div class="section-heading">
+        <p class="eyebrow">{copy.research}</p>
+        <h2 id="research-map-title">{copy.researchMap}</h2>
+        <p>{copy.researchMapHint}</p>
+      </div>
+      <div class="research-map">
+        {researchSteps.map((step, index) => (
+          <article class="research-step">
+            <div class="step-index">
+              <span>{step.number}</span>
+              {index < researchSteps.length - 1 && <i aria-hidden="true"></i>}
+            </div>
+            <div class="step-copy">
+              <h3>{localize(step.title, locale)}</h3>
+              <p class="step-subtitle">{localize(step.subtitle, locale)}</p>
+              <p>{localize(step.body, locale)}</p>
+              <div class="step-refs">{step.refs.map((ref) => <span>{ref}</span>)}</div>
+            </div>
+          </article>
+        ))}
+      </div>
+      <a class="section-link" href={localePath(locale, '/research/')}>
+        {locale === 'zh' ? '展开研究脉络' : 'Explore the research path'}<ArrowRight size={16} aria-hidden="true" />
+      </a>
+    </div>
+  </section>
+
+  <section class="section shell" aria-labelledby="selected-work-title">
+    <div class="section-heading split">
+      <div>
+        <p class="eyebrow">Publications</p>
+        <h2 id="selected-work-title">{copy.selectedWork}</h2>
+      </div>
+      <p>{copy.selectedWorkHint}</p>
+    </div>
+    <div class="publication-list">
+      {publications.filter((item) => item.featured).map((publication) => (
+        <PublicationRow publication={publication} locale={locale} />
+      ))}
+    </div>
+    <a class="section-link" href={localePath(locale, '/publications/')}>
+      {copy.allPublications}<ArrowRight size={16} aria-hidden="true" />
+    </a>
+  </section>
+
+  <section class="section ongoing-band" aria-labelledby="ongoing-title">
+    <div class="shell ongoing-grid">
+      <div class="ongoing-intro">
+        <p class="eyebrow accent">{copy.ongoingLabel}</p>
+        <h2 id="ongoing-title">{copy.ongoingTitle}</h2>
+        <p>{copy.ongoingHint}</p>
+      </div>
+      <div class="ongoing-items">
+        {ongoing.map((item) => (
+          <article>
+            <span>{item.index}</span>
+            <h3>{localize(item.title, locale)}</h3>
+            <p>{localize(item.body, locale)}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section shell home-lower" aria-label={locale === 'zh' ? '近况与文章' : 'Updates and notes'}>
+    <div class="updates-column">
+      <div class="section-heading compact">
+        <p class="eyebrow">News</p>
+        <h2>{copy.updates}</h2>
+      </div>
+      <ol class="news-list">
+        {news.map((item) => (
+          <li>
+            <time>{item.date}</time>
+            <p>{localize(item.text, locale)} {item.userReported && <small>{copy.userReported}</small>}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+    <div class="writing-column">
+      <div class="section-heading compact">
+        <p class="eyebrow">Blog</p>
+        <h2>{copy.writing}</h2>
+      </div>
+      <div class="blog-list compact-list">
+        {posts.map((post) => <BlogCard post={post} locale={locale} />)}
+      </div>
+      <a class="section-link" href={localePath(locale, '/blog/')}>
+        {copy.allNotes}<ArrowRight size={16} aria-hidden="true" />
+      </a>
+    </div>
+  </section>
+
+  <section class="section experience-section shell" aria-labelledby="experience-title">
+    <div class="section-heading compact">
+      <p class="eyebrow">Timeline</p>
+      <h2 id="experience-title">{copy.experience}</h2>
+    </div>
+    <div class="timeline">
+      {experience.map((item, index) => (
+        <article>
+          <div class="timeline-icon">{index === 1 ? <BookOpen size={18} /> : <GraduationCap size={18} />}</div>
+          <p class="timeline-period">{localize(item.period, locale)}</p>
+          <h3>{localize(item.title, locale)}</h3>
+          <p>{localize(item.detail, locale)}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

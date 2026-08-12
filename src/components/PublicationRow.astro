@@ -1,0 +1,36 @@
+---
+import { ArrowUpRight } from '@lucide/astro';
+import type { Locale } from '../data/profile';
+import { localize } from '../lib/i18n';
+
+interface Props {
+  publication: any;
+  locale: Locale;
+  compact?: boolean;
+}
+
+const { publication, locale, compact = false } = Astro.props;
+const authorParts = publication.authors.split('Wang Chen');
+---
+
+<article class:list={['publication-row', { compact }]}>
+  <div class="publication-media">
+    <img src={publication.image} alt={localize(publication.alt, locale)} width="720" height="450" loading="lazy" />
+    <span class="publication-year">{publication.year}</span>
+  </div>
+  <div class="publication-copy">
+    <p class="venue">{publication.venue}</p>
+    <h3>{publication.title}</h3>
+    <p class="authors">
+      {authorParts[0]}<strong>Wang Chen</strong>{authorParts.slice(1).join('Wang Chen')}
+    </p>
+    <p class="publication-summary">{localize(publication.summary, locale)}</p>
+    <div class="publication-links" aria-label={locale === 'zh' ? '论文链接' : 'Publication links'}>
+      {publication.links.map((link: { label: string; url: string }) => (
+        <a href={link.url} target="_blank" rel="noreferrer">
+          {link.label}<ArrowUpRight size={13} stroke-width={1.8} aria-hidden="true" />
+        </a>
+      ))}
+    </div>
+  </div>
+</article>

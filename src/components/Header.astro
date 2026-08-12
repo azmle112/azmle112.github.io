@@ -1,0 +1,69 @@
+---
+import { Menu, X } from '@lucide/astro';
+import type { Locale } from '../data/profile';
+import { alternatePath, localePath, t } from '../lib/i18n';
+
+interface Props {
+  locale: Locale;
+  pathname: string;
+}
+
+const { locale, pathname } = Astro.props;
+const copy = t(locale);
+const nav = [
+  { href: localePath(locale, '/'), label: copy.home, match: locale === 'zh' ? /^\/$/ : /^\/en\/$/ },
+  { href: localePath(locale, '/research/'), label: copy.research, match: /\/research\/$/ },
+  { href: localePath(locale, '/publications/'), label: copy.publications, match: /\/publications\/$/ },
+  { href: localePath(locale, '/blog/'), label: copy.notes, match: /\/blog(?:\/|$)/ },
+  { href: localePath(locale, '/about/'), label: copy.about, match: /\/about\/$/ },
+];
+const altHref = alternatePath(locale, pathname);
+---
+
+<header class="site-header" data-header>
+  <a class="skip-link" href="#content">{copy.skip}</a>
+  <div class="header-inner shell">
+    <a class="brand" href={localePath(locale, '/')} aria-label={locale === 'zh' ? '陈旺首页' : 'Wang Chen home'}>
+      <span class="brand-mark">WC</span>
+      <span class="brand-name">{locale === 'zh' ? '陈旺' : 'Wang Chen'}</span>
+    </a>
+
+    <button class="menu-button icon-button" type="button" aria-expanded="false" aria-controls="site-nav" aria-label={copy.nav} data-menu-button>
+      <Menu class="menu-open-icon" size={21} stroke-width={1.8} aria-hidden="true" />
+      <X class="menu-close-icon" size={21} stroke-width={1.8} aria-hidden="true" />
+    </button>
+
+    <nav id="site-nav" class="site-nav" aria-label="Primary" data-site-nav>
+      <div class="nav-links">
+        {nav.map((item) => (
+          <a class:list={['nav-link', { active: item.match.test(pathname) }]} href={item.href} aria-current={item.match.test(pathname) ? 'page' : undefined}>
+            {item.label}
+          </a>
+        ))}
+      </div>
+      <a class="language-switch" href={altHref} hreflang={locale === 'zh' ? 'en' : 'zh-CN'} aria-label={locale === 'zh' ? 'Switch to English' : '切换到中文'}>
+        <span class:list={{ active: locale === 'zh' }}>中</span>
+        <i aria-hidden="true"></i>
+        <span class:list={{ active: locale === 'en' }}>EN</span>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const button = document.querySelector('[data-menu-button]');
+  const nav = document.querySelector('[data-site-nav]');
+
+  button?.addEventListener('click', () => {
+    const isOpen = button.getAttribute('aria-expanded') === 'true';
+    button.setAttribute('aria-expanded', String(!isOpen));
+    nav?.classList.toggle('is-open', !isOpen);
+    document.body.classList.toggle('menu-is-open', !isOpen);
+  });
+
+  nav?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => {
+    button?.setAttribute('aria-expanded', 'false');
+    nav?.classList.remove('is-open');
+    document.body.classList.remove('menu-is-open');
+  }));
+</script>

@@ -1,0 +1,24 @@
+{
+  "name": "wang-chen-homepage",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.15.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.3",
+    "@fontsource-variable/noto-sans-sc": "^5.2.8",
+    "@fontsource-variable/source-serif-4": "^5.2.8",
+    "astro": "^7.2.1",
+    "@lucide/astro": "^1.31.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.6",
+    "typescript": "^5.9.3"
+  }
+}

@@ -1,0 +1,54 @@
+---
+import '@fontsource-variable/noto-sans-sc';
+import '@fontsource-variable/source-serif-4';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import type { Locale } from '../data/profile';
+import { alternatePath } from '../lib/i18n';
+
+interface Props {
+  title: string;
+  description: string;
+  locale: Locale;
+  image?: string;
+  article?: boolean;
+  noFooter?: boolean;
+}
+
+const { title, description, locale, image = '/images/wang-chen.jpg', article = false, noFooter = false } = Astro.props;
+const pathname = Astro.url.pathname;
+const canonical = Astro.site ? new URL(pathname, Astro.site) : Astro.url;
+const alternate = Astro.site ? new URL(alternatePath(locale, pathname), Astro.site) : new URL(alternatePath(locale, pathname), Astro.url);
+const fullImage = Astro.site ? new URL(image, Astro.site) : new URL(image, Astro.url);
+---
+
+<!doctype html>
+<html lang={locale === 'zh' ? 'zh-CN' : 'en'}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#f7f8f5" />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang={locale === 'zh' ? 'en' : 'zh-CN'} href={alternate} />
+    <link rel="alternate" hreflang="x-default" href={locale === 'zh' ? canonical : alternate} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>{title}</title>
+    <meta property="og:type" content={article ? 'article' : 'website'} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={fullImage} />
+    <meta property="og:locale" content={locale === 'zh' ? 'zh_CN' : 'en_US'} />
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body>
+    <Header locale={locale} pathname={pathname} />
+    <main id="content">
+      <slot />
+    </main>
+    {!noFooter && <Footer locale={locale} />}
+  </body>
+</html>

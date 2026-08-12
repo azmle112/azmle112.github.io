@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.astro/
+tmp/
+/resume_old.pdf
+/主页个人图片.jpg
+archive/source/*
+.DS_Store
+*.log

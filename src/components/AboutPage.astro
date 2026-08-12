@@ -1,0 +1,47 @@
+---
+import { ArrowUpRight, Download, Mail } from '@lucide/astro';
+import type { Locale } from '../data/profile';
+import { experience, links, profile, sources } from '../data/profile';
+import { localize } from '../lib/i18n';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const title = locale === 'zh' ? '关于 | 陈旺' : 'About | Wang Chen';
+const description = locale === 'zh' ? '陈旺，厦门大学 MAC 实验室人工智能方向硕博连读生，研究长视频理解与多模态推理。' : 'Wang Chen is an M.S.-Ph.D. student at Xiamen University MAC Lab, studying long-video understanding and multimodal reasoning.';
+---
+<BaseLayout title={title} description={description} locale={locale}>
+  <section class="about-hero shell">
+    <figure><img src="/images/wang-chen-outdoors.jpg" alt={locale === 'zh' ? '陈旺在山湖边的个人照片' : 'Wang Chen by a mountain lake'} width="1365" height="2048" /></figure>
+    <div>
+      <p class="eyebrow">About</p>
+      <h1>{locale === 'zh' ? '关于我' : 'About me'}</h1>
+      <p class="about-lead">{localize(profile.intro, locale)}</p>
+      <p>{locale === 'zh' ? '我在厦门大学人工智能研究院与 MAC 实验室学习。本科就读于福州大学人工智能专业，从生成式视觉与人脸美学开始接触研究，后来把注意力转向长视频中的信息冗余、事件结构与多模态推理。' : 'I study at the Institute of Artificial Intelligence and MAC Lab, Xiamen University. I earned my bachelor’s degree in AI at Fuzhou University, where I began with generative vision and facial aesthetics before turning to information redundancy, event structure, and multimodal reasoning in long videos.'}</p>
+      <p>{locale === 'zh' ? '2026 年 5 月起，我在高德地图（阿里巴巴集团）实习。接下来希望继续研究两个相连的问题。一个问题关心生成怎样促进测试时理解，另一个问题关心模型怎样在持续到来的视频里保持长时程思考。' : 'Since May 2026, I have been interning at AMap, Alibaba Group. My next questions concern how generation can improve understanding at test time and how models can sustain long-horizon thought over streaming video.'}</p>
+      <div class="about-links">
+        <a href={links.email}><Mail size={16} />cw501907@gmail.com</a>
+        <a href={links.cv} target="_blank"><Download size={16} />{locale === 'zh' ? '下载中文简历' : 'Download Chinese CV'}</a>
+      </div>
+    </div>
+  </section>
+  <section class="section shell about-details">
+    <div>
+      <p class="eyebrow">Timeline</p>
+      <h2>{locale === 'zh' ? '学习与经历' : 'Education and experience'}</h2>
+    </div>
+    <div class="about-timeline">
+      {experience.map((item) => (
+        <article><time>{localize(item.period, locale)}</time><h3>{localize(item.title, locale)}</h3><p>{localize(item.detail, locale)}</p></article>
+      ))}
+    </div>
+  </section>
+  <section class="about-records">
+    <div class="shell about-details">
+      <div><p class="eyebrow">Records</p><h2>{locale === 'zh' ? '公开学术档案' : 'Public academic records'}</h2></div>
+      <div class="record-links">
+        {sources.map((source) => <a href={source.url} target="_blank" rel="noreferrer"><span>{source.label}</span><ArrowUpRight size={17} /></a>)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

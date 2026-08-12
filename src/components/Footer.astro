@@ -1,0 +1,35 @@
+---
+import { ArrowUpRight, Mail } from '@lucide/astro';
+import type { Locale } from '../data/profile';
+import { links, sources } from '../data/profile';
+import { t } from '../lib/i18n';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const copy = t(locale);
+---
+
+<footer class="site-footer">
+  <div class="shell footer-inner">
+    <div class="footer-signoff">
+      <p class="eyebrow">{locale === 'zh' ? '联系' : 'Contact'}</p>
+      <h2>{copy.contactTitle}</h2>
+      <p>{copy.contactBody}</p>
+      <a class="text-link" href={links.email}>
+        <Mail size={17} stroke-width={1.8} aria-hidden="true" />
+        cw501907@gmail.com
+      </a>
+    </div>
+    <div class="footer-meta">
+      <p>{copy.sourceNote}</p>
+      <div class="footer-links">
+        {sources.map((source) => (
+          <a href={source.url} target="_blank" rel="noreferrer">
+            {source.label}<ArrowUpRight size={13} aria-hidden="true" />
+          </a>
+        ))}
+      </div>
+      <p>© {new Date().getFullYear()} Wang Chen · Xiamen, China</p>
+    </div>
+  </div>
+</footer>

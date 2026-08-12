@@ -1,0 +1,29 @@
+---
+import type { Locale } from '../data/profile';
+import { publications } from '../data/profile';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import InnerHero from './InnerHero.astro';
+import PublicationRow from './PublicationRow.astro';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const title = locale === 'zh' ? '论文 | 陈旺' : 'Publications | Wang Chen';
+const description = locale === 'zh' ? '陈旺关于长视频理解、多模态推理与生成式视觉的论文与预印本。' : 'Publications and preprints by Wang Chen on long-video understanding, multimodal reasoning, and generative vision.';
+const formal = publications.filter((item) => !item.venue.includes('preprint'));
+const preprints = publications.filter((item) => item.venue.includes('preprint'));
+const illustrated = new Set(['wfs-sb', 'quota', 'efs']);
+---
+<BaseLayout title={title} description={description} locale={locale}>
+  <InnerHero eyebrow="Publications" title={locale === 'zh' ? '论文与预印本' : 'Papers and preprints'} description={description} />
+  <section class="publication-page shell">
+    <div class="publication-group">
+      <div class="group-title"><span>01</span><h2>{locale === 'zh' ? '会议论文' : 'Conference papers'}</h2></div>
+      <div class="publication-list">{formal.map((publication) => <PublicationRow publication={publication} locale={locale} compact={!illustrated.has(publication.key)} />)}</div>
+    </div>
+    <div class="publication-group">
+      <div class="group-title"><span>02</span><h2>{locale === 'zh' ? '预印本' : 'Preprints'}</h2></div>
+      <div class="publication-list">{preprints.map((publication) => <PublicationRow publication={publication} locale={locale} compact={!illustrated.has(publication.key)} />)}</div>
+    </div>
+    <p class="publication-note">{locale === 'zh' ? '作者顺序与发表状态按论文页面核对。* 表示共同贡献。预印本不会以投稿中的会议名称标注。' : 'Author order and publication status are checked against the paper pages. * denotes equal contribution. Preprints are not labeled with withdrawn or pending submission venues.'}</p>
+  </section>
+</BaseLayout>

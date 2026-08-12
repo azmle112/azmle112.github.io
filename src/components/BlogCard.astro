@@ -1,0 +1,34 @@
+---
+import { ArrowRight } from '@lucide/astro';
+import type { CollectionEntry } from 'astro:content';
+import type { Locale } from '../data/profile';
+import { formatDate, localePath, t } from '../lib/i18n';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+  locale: Locale;
+}
+
+const { post, locale } = Astro.props;
+const copy = t(locale);
+const slug = post.id.split('/').pop()?.replace(/\.(md|mdx)$/, '') ?? post.id;
+const href = localePath(locale, `/blog/${slug}/`);
+---
+
+<article class="blog-card">
+  <div class="blog-meta">
+    <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate, locale)}</time>
+    <span aria-hidden="true">·</span>
+    <span>{post.data.readingTime}{locale === 'en' ? ` ${copy.minRead}` : ''}</span>
+  </div>
+  <h3><a href={href}>{post.data.title}</a></h3>
+  <p>{post.data.description}</p>
+  <div class="blog-card-footer">
+    <div class="tag-list">
+      {post.data.tags.slice(0, 3).map((tag) => <span>{tag}</span>)}
+    </div>
+    <a class="read-link" href={href} aria-label={`${copy.read}: ${post.data.title}`}>
+      {copy.read}<ArrowRight size={15} stroke-width={1.8} aria-hidden="true" />
+    </a>
+  </div>
+</article>

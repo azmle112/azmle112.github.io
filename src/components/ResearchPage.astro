@@ -1,0 +1,59 @@
+---
+import { ArrowDownRight } from '@lucide/astro';
+import type { Locale } from '../data/profile';
+import { ongoing, profile, publications, researchSteps } from '../data/profile';
+import { localize } from '../lib/i18n';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import InnerHero from './InnerHero.astro';
+import PublicationRow from './PublicationRow.astro';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const title = locale === 'zh' ? '研究 | 陈旺' : 'Research | Wang Chen';
+const description = localize(profile.vision, locale);
+---
+<BaseLayout title={title} description={description} locale={locale}>
+  <InnerHero eyebrow="Research" title={localize(profile.visionTitle, locale)} description={description} />
+  <section class="shell research-narrative" aria-label={locale === 'zh' ? '研究路线' : 'Research path'}>
+    {researchSteps.map((step) => (
+      <article class="research-chapter">
+        <div class="chapter-marker">
+          <span>{step.number}</span>
+          <ArrowDownRight size={21} stroke-width={1.5} aria-hidden="true" />
+        </div>
+        <div>
+          <p class="eyebrow">{localize(step.title, locale)}</p>
+          <h2>{localize(step.subtitle, locale)}</h2>
+        </div>
+        <div class="chapter-body">
+          <p>{localize(step.body, locale)}</p>
+          <div class="step-refs">{step.refs.map((ref) => <span>{ref}</span>)}</div>
+        </div>
+      </article>
+    ))}
+  </section>
+  <section class="section research-featured shell">
+    <div class="section-heading">
+      <p class="eyebrow">Evidence</p>
+      <h2>{locale === 'zh' ? '已有工作怎样接上这条路线' : 'How the published work supports this path'}</h2>
+      <p>{locale === 'zh' ? '论文依次处理事件结构、查询相关预算和语义边界。它们也是下一步研究的技术起点。' : 'The papers address event structure, query-aware budgets, and semantic boundaries. They are also the technical starting points for what comes next.'}</p>
+    </div>
+    <div class="publication-list">
+      {publications.filter((item) => item.featured).map((publication) => <PublicationRow publication={publication} locale={locale} />)}
+    </div>
+  </section>
+  <section class="section ongoing-band">
+    <div class="shell ongoing-grid">
+      <div class="ongoing-intro">
+        <p class="eyebrow accent">Ongoing</p>
+        <h2>{locale === 'zh' ? '从选取证据走向持续思考' : 'From selecting evidence to sustained thought'}</h2>
+        <p>{locale === 'zh' ? '接下来的工作会把研究对象从输入预算推向推理预算与流式状态。' : 'The next projects move from input budgets toward inference budgets and streaming state.'}</p>
+      </div>
+      <div class="ongoing-items">
+        {ongoing.map((item) => (
+          <article><span>{item.index}</span><h3>{localize(item.title, locale)}</h3><p>{localize(item.body, locale)}</p></article>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
