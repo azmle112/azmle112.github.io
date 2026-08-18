@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">图 2　三种 GOP 或分组语义</title>
+  <desc id="desc">同一个 GOP 名称，在编码、LLaVA 逻辑分组和预处理就绪条件中表示不同边界。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke"/></marker>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#0f172a" flood-opacity="0.10"/></filter>
+  </defs>
+  <rect width="1600" height="900" fill="#ffffff"/>
+  <rect x="28" y="28" width="1544" height="844" rx="30" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="70" y="82" text-anchor="start" font-size="24" font-weight="800" fill="#2563eb">图 2</text>
+  <text x="160" y="84" text-anchor="start" font-size="42" font-weight="800" fill="#172033">三种 GOP 或分组语义</text>
+  <text x="70" y="122" text-anchor="start" font-size="22" font-weight="500" fill="#5d6678">同一个 GOP 名称，在编码、LLaVA 逻辑分组和预处理就绪条件中表示不同边界。</text>
+  <rect x="70" y="160" width="1460" height="190" rx="24" fill="#fff" stroke="#2563eb" stroke-width="2"/>
+  <rect x="96" y="184" width="212" height="44" rx="22" fill="#dbeafe" stroke="#dbeafe" stroke-width="2"/><text x="202" y="214" text-anchor="middle" font-size="20" font-weight="700" fill="#2563eb">编码 GOP</text>
+  <text x="332" y="214" text-anchor="start" font-size="23" font-weight="650" fill="#5d6678">关键帧之间的预测依赖区间</text>
+  <line x1="338" y1="285" x2="1430" y2="285" stroke="#2563eb" stroke-width="4" marker-end="url(#arrow)"/>
+  <circle cx="370" cy="285" r="20" fill="#2563eb"/><text x="370" y="293" text-anchor="middle" font-size="22" font-weight="800" fill="#fff">I</text>
+  <circle cx="610" cy="285" r="15" fill="#0891b2"/><text x="610" y="292" text-anchor="middle" font-size="18" font-weight="800" fill="#fff">P</text>
+  <circle cx="850" cy="285" r="15" fill="#0891b2"/><text x="850" y="292" text-anchor="middle" font-size="18" font-weight="800" fill="#fff">P</text>
+  <circle cx="1090" cy="285" r="15" fill="#0891b2"/><text x="1090" y="292" text-anchor="middle" font-size="18" font-weight="800" fill="#fff">P</text>
+  <circle cx="1330" cy="285" r="20" fill="#2563eb"/><text x="1330" y="293" text-anchor="middle" font-size="22" font-weight="800" fill="#fff">I</text>
+
+  <rect x="70" y="374" width="1460" height="190" rx="24" fill="#fff" stroke="#7c3aed" stroke-width="2"/>
+  <rect x="96" y="398" width="230" height="44" rx="22" fill="#ede9fe" stroke="#ede9fe" stroke-width="2"/><text x="211" y="428" text-anchor="middle" font-size="20" font-weight="700" fill="#7c3aed">LLaVA 逻辑组</text>
+  <text x="350" y="428" text-anchor="start" font-size="23" font-weight="650" fill="#5d6678">完整帧 anchor + 若干 P 帧 patch，共同进入受限注意力范围</text>
+  <rect x="360" y="475" width="160" height="62" rx="22" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/><text x="440" y="516" text-anchor="middle" font-size="22" font-weight="700" fill="#172033">Anchor I</text>
+  <rect x="570" y="475" width="160" height="62" rx="22" fill="#cffafe" stroke="#0891b2" stroke-width="2"/><text x="650" y="516" text-anchor="middle" font-size="22" font-weight="700" fill="#172033">P patch 1</text>
+  <rect x="780" y="475" width="160" height="62" rx="22" fill="#cffafe" stroke="#0891b2" stroke-width="2"/><text x="860" y="516" text-anchor="middle" font-size="22" font-weight="700" fill="#172033">P patch 2</text>
+  <rect x="990" y="475" width="160" height="62" rx="22" fill="#cffafe" stroke="#0891b2" stroke-width="2"/><text x="1070" y="516" text-anchor="middle" font-size="22" font-weight="700" fill="#172033">P patch 3</text>
+  <rect x="1200" y="475" width="160" height="62" rx="22" fill="#e2e8f0" stroke="#475569" stroke-width="2"/><text x="1280" y="516" text-anchor="middle" font-size="22" font-weight="700" fill="#172033">Group end</text>
+  <line x1="520" y1="506" x2="570" y2="506" stroke="#7c3aed" stroke-width="3" marker-end="url(#arrow)"/><line x1="730" y1="506" x2="780" y2="506" stroke="#7c3aed" stroke-width="3" marker-end="url(#arrow)"/><line x1="940" y1="506" x2="990" y2="506" stroke="#7c3aed" stroke-width="3" marker-end="url(#arrow)"/><line x1="1150" y1="506" x2="1200" y2="506" stroke="#7c3aed" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="70" y="588" width="1460" height="190" rx="24" fill="#fff" stroke="#ea580c" stroke-width="2"/>
+  <rect x="96" y="612" width="300" height="44" rx="22" fill="#ffedd5" stroke="#ffedd5" stroke-width="2"/><text x="246" y="642" text-anchor="middle" font-size="20" font-weight="700" fill="#ea580c">codec-video-prep 组</text>
+  <text x="420" y="642" text-anchor="start" font-size="23" font-weight="650" fill="#5d6678">按 patch 数量与 readiness 阈值聚合，组边界可以独立于关键帧</text>
+  <rect x="370" y="690" width="220" height="60" rx="22" fill="#ffedd5" stroke="#ea580c" stroke-width="2"/><text x="480" y="730" text-anchor="middle" font-size="21" font-weight="700" fill="#172033">累计有效 patch</text>
+  <line x1="590" y1="720" x2="720" y2="720" stroke="#ea580c" stroke-width="3" marker-end="url(#arrow)"/><text x="655" y="708" text-anchor="middle" font-size="19" font-weight="650" fill="#ea580c">达到阈值</text>
+  <rect x="720" y="690" width="220" height="60" rx="22" fill="#d1fae5" stroke="#059669" stroke-width="2"/><text x="830" y="730" text-anchor="middle" font-size="21" font-weight="700" fill="#172033">readiness = true</text>
+  <line x1="940" y1="720" x2="1070" y2="720" stroke="#059669" stroke-width="3" marker-end="url(#arrow)"/><text x="1005" y="708" text-anchor="middle" font-size="19" font-weight="650" fill="#059669">刷新组</text>
+  <rect x="1070" y="690" width="220" height="60" rx="22" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/><text x="1180" y="730" text-anchor="middle" font-size="21" font-weight="700" fill="#172033">开始下一组</text>
+  <text x="1530" y="842" text-anchor="end" font-size="18" font-weight="600" fill="#94a3b8">Codec-Native Video · Technical Report</text>
+</svg>
