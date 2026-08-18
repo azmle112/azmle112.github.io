@@ -14,12 +14,15 @@ interface Props {
   image?: string;
   article?: boolean;
   noFooter?: boolean;
+  alternateHref?: string | null;
+  languageSwitchHref?: string;
 }
 
-const { title, description, locale, image = '/images/wang-chen.jpg', article = false, noFooter = false } = Astro.props;
+const { title, description, locale, image = '/images/wang-chen.jpg', article = false, noFooter = false, alternateHref, languageSwitchHref } = Astro.props;
 const pathname = Astro.url.pathname;
 const canonical = Astro.site ? new URL(pathname, Astro.site) : Astro.url;
-const alternate = Astro.site ? new URL(alternatePath(locale, pathname), Astro.site) : new URL(alternatePath(locale, pathname), Astro.url);
+const alternatePathname = alternateHref === undefined ? alternatePath(locale, pathname) : alternateHref;
+const alternate = alternatePathname ? (Astro.site ? new URL(alternatePathname, Astro.site) : new URL(alternatePathname, Astro.url)) : undefined;
 const fullImage = Astro.site ? new URL(image, Astro.site) : new URL(image, Astro.url);
 ---
 
@@ -32,8 +35,8 @@ const fullImage = Astro.site ? new URL(image, Astro.site) : new URL(image, Astro
     <meta name="description" content={description} />
     <meta name="theme-color" content="#f7f8f5" />
     <link rel="canonical" href={canonical} />
-    <link rel="alternate" hreflang={locale === 'zh' ? 'en' : 'zh-CN'} href={alternate} />
-    <link rel="alternate" hreflang="x-default" href={locale === 'zh' ? canonical : alternate} />
+    {alternate && <link rel="alternate" hreflang={locale === 'zh' ? 'en' : 'zh-CN'} href={alternate} />}
+    <link rel="alternate" hreflang="x-default" href={locale === 'zh' || !alternate ? canonical : alternate} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <title>{title}</title>
     <meta property="og:type" content={article ? 'article' : 'website'} />
@@ -45,7 +48,7 @@ const fullImage = Astro.site ? new URL(image, Astro.site) : new URL(image, Astro
     <meta name="twitter:card" content="summary_large_image" />
   </head>
   <body>
-    <Header locale={locale} pathname={pathname} />
+    <Header locale={locale} pathname={pathname} alternateHref={languageSwitchHref} />
     <main id="content">
       <slot />
     </main>

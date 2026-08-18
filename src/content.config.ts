@@ -13,6 +13,7 @@ const blog = defineCollection({
     tags: z.array(z.string()),
     lang: z.enum(['zh', 'en']),
     translationKey: z.string(),
+    tocDepth: z.enum(['chapters', 'sections']).default('sections'),
     featured: z.boolean().default(false),
     draft: z.boolean().default(false),
     sources: z.array(z.object({

@@ -1,5 +1,6 @@
 ---
 import { ArrowLeft, ArrowUpRight, CalendarDays, Clock3 } from '@lucide/astro';
+import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import type { MarkdownHeading } from 'astro';
 import type { Locale } from '../data/profile';
@@ -14,11 +15,13 @@ interface Props {
 
 const { post, headings, locale } = Astro.props;
 const copy = t(locale);
-const toc = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
-const slug = post.id.split('/').pop()?.replace(/\.(md|mdx)$/, '') ?? post.id;
-const translationHref = localePath(locale === 'zh' ? 'en' : 'zh', `/blog/${slug}/`);
+const toc = headings.filter((heading) => post.data.tocDepth === 'chapters' ? heading.depth === 2 : heading.depth === 2 || heading.depth === 3);
+const translationPost = (await getCollection('blog', ({ data }) => data.translationKey === post.data.translationKey && data.lang !== locale && !data.draft))[0];
+const translationSlug = translationPost?.id.split('/').pop()?.replace(/\.(md|mdx)$/, '');
+const translationHref = translationSlug ? localePath(locale === 'zh' ? 'en' : 'zh', `/blog/${translationSlug}/`) : undefined;
+const languageSwitchHref = translationHref ?? localePath(locale === 'zh' ? 'en' : 'zh', '/blog/');
 ---
-<BaseLayout title={`${post.data.title} | ${locale === 'zh' ? '陈旺' : 'Wang Chen'}`} description={post.data.description} locale={locale} article>
+<BaseLayout title={`${post.data.title} | ${locale === 'zh' ? '陈旺' : 'Wang Chen'}`} description={post.data.description} locale={locale} article alternateHref={translationHref ?? null} languageSwitchHref={languageSwitchHref}>
   <article class="article-page">
     <header class="article-header shell">
       <a class="back-link" href={localePath(locale, '/blog/')}><ArrowLeft size={15} />{locale === 'zh' ? '返回文章' : 'Back to notes'}</a>
@@ -29,7 +32,7 @@ const translationHref = localePath(locale === 'zh' ? 'en' : 'zh', `/blog/${slug}
         <span><CalendarDays size={15} />{formatDate(post.data.pubDate, locale)}</span>
         <span><Clock3 size={15} />{post.data.readingTime}{locale === 'en' ? ` ${copy.minRead}` : ''}</span>
         {post.data.updatedDate && <span>{copy.latestUpdate} {formatDate(post.data.updatedDate, locale)}</span>}
-        <a href={translationHref}>{locale === 'zh' ? 'Read in English' : '阅读中文版'}<ArrowUpRight size={13} /></a>
+        {translationHref && <a href={translationHref}>{locale === 'zh' ? 'Read in English' : '阅读中文版'}<ArrowUpRight size={13} /></a>}
       </div>
     </header>
 

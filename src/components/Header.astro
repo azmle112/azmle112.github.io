@@ -6,9 +6,10 @@ import { alternatePath, localePath, t } from '../lib/i18n';
 interface Props {
   locale: Locale;
   pathname: string;
+  alternateHref?: string;
 }
 
-const { locale, pathname } = Astro.props;
+const { locale, pathname, alternateHref } = Astro.props;
 const copy = t(locale);
 const nav = [
   { href: localePath(locale, '/'), label: copy.home, match: locale === 'zh' ? /^\/$/ : /^\/en\/$/ },
@@ -17,7 +18,7 @@ const nav = [
   { href: localePath(locale, '/blog/'), label: copy.notes, match: /\/blog(?:\/|$)/ },
   { href: localePath(locale, '/about/'), label: copy.about, match: /\/about\/$/ },
 ];
-const altHref = alternatePath(locale, pathname);
+const altHref = alternateHref ?? alternatePath(locale, pathname);
 ---
 
 <header class="site-header" data-header>
