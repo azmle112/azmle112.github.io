@@ -11,32 +11,52 @@ export const links = {
   orcid: 'https://orcid.org/0009-0005-2574-5230',
   lab: 'https://mac.xmu.edu.cn/',
   cv: '/files/cv-zh.pdf',
+  wechat: 'https://mp.weixin.qq.com/s/kKNY5tE6aczIX5T0UglUwQ',
 };
 
 export const profile = {
   name: { zh: '陈旺', en: 'Wang Chen' },
   nameLatin: 'Wang Chen',
   title: {
-    zh: '厦门大学 MAC 实验室人工智能方向硕博连读生',
-    en: 'M.S.-Ph.D. student in AI at Xiamen University MAC Lab',
+    zh: '厦门大学 MAC 实验室人工智能方向博士生',
+    en: 'Ph.D. student in AI at Xiamen University MAC Lab',
   },
   internship: {
     zh: '2026 年 5 月起在高德地图（阿里巴巴集团）实习',
     en: 'Research intern at AMap, Alibaba Group, since May 2026',
   },
   intro: {
-      zh: '我研究长时程视觉信息怎样进入多模态模型。眼下关心的问题很具体。有限的帧、token 和推理预算该花在哪里，模型又该怎样保留事件结构，在视频持续到来时继续形成可靠的理解。',
-    en: 'I study how long-horizon visual information should enter multimodal models. My current questions are concrete: where to spend limited frames, tokens, and inference compute, and how a model can preserve event structure while a visual stream continues to unfold.',
+    zh: '我研究长时程视觉信息怎样进入多模态模型，也关心生成能否帮助模型理解世界。眼下的问题很具体。模型该怎样从连续视频中保留事件结构，怎样生成可检查的候选解释，又怎样回到原始证据里修正它们。',
+    en: 'I study how long-horizon visual information should enter multimodal models, and how generation can help a model understand the world. My current questions are concrete: how to preserve event structure in continuous video, generate inspectable candidate explanations, and return to the original evidence to revise them.',
+  },
+  wechatNote: {
+    zh: '公众号「AI骇客」也是我偶尔运营的',
+    en: 'I also occasionally run the WeChat account AI Hacker',
   },
   visionTitle: {
     zh: '理解不断展开的世界',
     en: 'Understanding a world in motion',
   },
   vision: {
-    zh: '我希望构建能在有限计算下持续看见、组织并推理多模态信息的系统。研究从长视频中的关键时刻出发，逐步走向可验证的 test-time scaling 与长时程流式思考。',
-    en: 'I want to build multimodal systems that continuously perceive, organize, and reason under finite computation. The path starts with key moments in long videos and moves toward verifiable test-time scaling and long-horizon streaming thought.',
+    zh: '我希望构建能在现实时间尺度上持续看见、组织并理解多模态信息的系统。研究从长视频中的事件结构出发，进一步探究生成怎样提出可检验的假设，以及模型怎样在持续到来的视觉流中积累而不遗失证据。',
+    en: 'I want to build multimodal systems that can keep seeing, organizing, and understanding information over real-world time scales. The path starts with event structure in long video, then asks how generation can propose testable hypotheses and how a model can accumulate evidence without losing it as a visual stream continues.',
   },
 };
+
+export const visionParagraphs = [
+  {
+    zh: '现实中的视觉经验很少被整齐地切成一张张图片。一次实验、一段旅程或一场比赛会持续很久，真正影响判断的线索却只在少数时刻出现。模型需要知道哪里发生了变化，也要记得这些变化前后怎样相连。我的第一条研究线索由此展开。我尝试把视频里的语义边界、事件锚点和查询相关信息组织起来，让有限输入保留足够完整的故事。',
+    en: 'Visual experience in the real world rarely arrives as a tidy stack of independent images. An experiment, a journey, or a match can last for hours, while the evidence that changes a judgment may appear only briefly. A model has to notice when an event changes and remember how those changes connect. This motivates my first research thread: organizing semantic boundaries, event anchors, and query-relevant information so that a finite input still retains a coherent account of what happened.',
+  },
+  {
+    zh: '生成给这条路线补上了另一种可能。模型可以先提出事件描述、缺失状态或未来走向，再回到观测中寻找支持与冲突。这样的生成结果只是一组候选，价值来自它让模糊的内部状态变得可以检查。一个候选若找不到时间位置、视觉实体或前后因果的支持，就应该被修改或舍弃。理解因此有了可操作的中间对象。',
+    en: 'Generation adds another possibility. A model can propose an event description, a missing state, or a possible future, then return to its observations to look for support and contradiction. These generations are candidates rather than evidence. Their value lies in turning an ambiguous internal state into something that can be inspected. If a candidate cannot be grounded in time, entities, or causal order, it should be revised or rejected.',
+  },
+  {
+    zh: '我最终想做的系统，应当能一边接收持续到来的视频，一边维护对事件的当前理解。它知道哪些内容已经确认，哪些仍是假设，旧证据在什么时候需要重新查看。模型给出的答案只是这一过程的一个出口。更重要的是，答案背后的事件表示能够随着新信息到来继续更新，并保留足够清楚的证据来路。',
+    en: 'The system I ultimately want to build should maintain a working account of events while video keeps arriving. It should know what has been confirmed, what remains hypothetical, and when earlier evidence needs to be revisited. An answer is only one output of this process. More important is an event representation that can keep changing with new information while preserving where its evidence came from.',
+  },
+];
 
 export const researchSteps = [
   {
@@ -52,25 +72,25 @@ export const researchSteps = [
   },
   {
     number: '02',
-    key: 'allocate',
-    title: { zh: '分配', en: 'Allocate' },
-    subtitle: { zh: '把预算留给真正有用的信息', en: 'Spend compute where information matters' },
+    key: 'propose',
+    title: { zh: '生成', en: 'Propose' },
+    subtitle: { zh: '把模糊理解变成可检查的候选', en: 'Turn an uncertain reading into inspectable candidates' },
     body: {
-      zh: '帧、视觉 token 与测试时计算都有限。我的工作尝试让分配过程感知查询、事件与当前的不确定性。',
-      en: 'Frames, visual tokens, and test-time compute are all finite. My work makes allocation sensitive to the query, event structure, and current uncertainty.',
+      zh: '让模型生成事件描述、缺失状态或可能的未来，把尚未成形的判断写成能够被定位、比较和否证的中间对象。',
+      en: 'Generate event descriptions, missing states, or possible futures so an unfinished judgment becomes an intermediate object that can be localized, compared, and falsified.',
     },
-    refs: ['QuoTA', 'Test-time scaling'],
+    refs: ['Generative understanding', 'Hypothesis grounding'],
   },
   {
     number: '03',
-    key: 'understand',
-    title: { zh: '理解', en: 'Understand' },
-    subtitle: { zh: '让推理经得起时间与证据检查', en: 'Make reasoning survive time and evidence checks' },
+    key: 'verify',
+    title: { zh: '核验', en: 'Verify' },
+    subtitle: { zh: '让理解随着证据继续更新', en: 'Let understanding keep changing with evidence' },
     body: {
-      zh: '最终目标是让模型在长时程场景中持续更新判断，保留证据来路，并在生成与验证之间形成闭环。',
-      en: 'The goal is to let models update beliefs over long horizons, retain evidence provenance, and close the loop between generation and verification.',
+      zh: '把候选重新放回时间线和原始视觉证据中检查。保留得到支持的部分，修正冲突之处，并在长时程场景里持续更新事件记忆。',
+      en: 'Place each candidate back on the timeline and against the original visual evidence. Keep what is supported, revise conflicts, and update event memory over long horizons.',
     },
-    refs: ['Streaming video thinking', 'Test-time scaling'],
+    refs: ['Evidence tracing', 'Streaming video understanding'],
   },
 ];
 
@@ -146,10 +166,10 @@ export const publications = [
     authors: 'Wang Chen*, Peizhen Chen*, Weijie Chen, Luojun Lin',
     venue: 'ICASSP 2023 · Equal contribution',
     featured: false,
-    image: '/images/papers/face-beautification.jpg',
+    image: '/images/papers/customized-face-beautification.jpg',
     alt: {
-      zh: 'Customized Automatic Face Beautification 论文条目',
-      en: 'Customized Automatic Face Beautification paper entry',
+      zh: '定制化人脸美化方法流程，展示人脸编码、重建与美学模型引导',
+      en: 'Customized face beautification pipeline with face encoding, reconstruction, and aesthetics-guided refinement',
     },
     summary: {
       zh: '提出由人脸美学预测模型引导的 StyleGAN 反演，根据用户给出的目标分数做定制化人脸修饰，同时尽量保留身份信息。',
@@ -167,10 +187,10 @@ export const publications = [
     authors: 'Luojun Lin, Wang Chen, Peizhen Chen, Xiawu Zheng, Lianwen Jin',
     venue: 'SSRN preprint',
     featured: false,
-    image: '/images/papers/face-beautification.jpg',
+    image: '/images/papers/real-time-face-beautification.svg',
     alt: {
-      zh: '实时交互式人脸美化预印本条目',
-      en: 'Real-Time Interactive Face Beautification preprint entry',
+      zh: '实时交互式人脸美化示意图，展示目标分数与潜空间美学超平面插值',
+      en: 'Real-time interactive face beautification through target-score interpolation across an aesthetic hyperplane',
     },
     summary: {
       zh: '构造美学超平面，并在潜空间中直接插值，使用户可以实时调整目标美学分数，同时尽量保留身份特征。',
@@ -187,10 +207,10 @@ export const publications = [
     authors: 'Tianyu Xie, Yuexiao Ma, Yuhang Wu, Wang Chen, Jiayi Ji, Tat-Seng Chua, Xiawu Zheng, Rongrong Ji',
     venue: 'ICML 2026',
     featured: false,
-    image: '/images/papers/efs.jpg',
+    image: '/images/papers/orchestration.jpg',
     alt: {
-      zh: '免训练多模态大模型编排论文条目',
-      en: 'Training-Free Multimodal Large Language Model Orchestration paper entry',
+      zh: '免训练多模态大模型编排流程，展示统一输入、LLM 编排与统一输出',
+      en: 'Training-free multimodal orchestration pipeline from unified inputs through LLM orchestration to unified outputs',
     },
     summary: {
       zh: '通过语言模型控制器、文本化跨模态记忆和全双工交互层，在不额外训练的情况下组合现成的模态专家。',
@@ -203,14 +223,14 @@ export const publications = [
   {
     key: 'socialomni',
     year: '2026',
-    title: 'SocialOmni: Benchmarking Audio-Visual Social Interaction in Omni Models',
+    title: 'SocialOmni: Benchmarking Audio-Visual Social Interactivity in Omni Models',
     authors: 'Tianyu Xie, Jinfa Huang, Yuexiao Ma, Rongfang Luo, Yan Yang, Wang Chen, Yuhui Zeng, Yixuan Zou, Qingchuan Ma, Zhiqiang Lu, Ruize Fang, Xiawu Zheng, Jiebo Luo, Rongrong Ji',
     venue: 'arXiv preprint',
     featured: false,
-    image: '/images/papers/efs.jpg',
+    image: '/images/papers/socialomni.jpg',
     alt: {
-      zh: 'SocialOmni 音视频社交交互基准条目',
-      en: 'SocialOmni audio-visual social interaction benchmark entry',
+      zh: 'SocialOmni 基准概览、任务设计与全模态模型表现',
+      en: 'SocialOmni benchmark overview, task design, and omni-model performance',
     },
     summary: {
       zh: '从说话人感知、打断时机与回应方式评测音视频社交交互，并分析感知准确率与最终交互质量之间的差距。',
@@ -223,14 +243,14 @@ export const publications = [
   {
     key: 'wavezip',
     year: '2026',
-    title: 'WaveZip: Wavelet-Guided Spatiotemporal Token Compression for Video Large Language Models',
+    title: 'WaveZip: Wavelet-Driven Space-Time Decoupling for Video Token Condensation',
     authors: 'Yuhui Zeng, Wang Chen, Jinfa Huang, Tianyu Xie, Yongdong Luo, Jiayi Ji, Xiawu Zheng, Jiebo Luo',
     venue: 'arXiv preprint',
     featured: false,
-    image: '/images/papers/wfs-sb.jpg',
+    image: '/images/papers/wavezip.jpg',
     alt: {
-      zh: 'WaveZip 小波引导的视频 token 压缩预印本条目',
-      en: 'WaveZip wavelet-guided video token compression preprint entry',
+      zh: 'WaveZip 小波时空解耦视频 token 压缩流程',
+      en: 'WaveZip pipeline for wavelet-driven space-time video token condensation',
     },
     summary: {
       zh: '用时空解耦的小波分析分配帧级预算并压缩空间 token，关注高压缩率下的性能保留。',
@@ -243,14 +263,14 @@ export const publications = [
   {
     key: 'mec',
     year: '2026',
-    title: 'One Ranking, Any Budget: Multi-scale Evidence Compilation for Efficient Long-Video Understanding',
+    title: 'One Ranking, Any Budget: Matryoshka Evidence-to-Context Frame Selection for Long-Video Understanding',
     authors: 'Wang Chen, Yu Chen, Xiang Wang, Shuai Li, Jinfa Huang, Xiawu Zheng',
     venue: 'arXiv preprint',
     featured: false,
-    image: '/images/papers/quota.jpg',
+    image: '/images/papers/mec.jpg',
     alt: {
-      zh: 'MEC 任意预算帧排序预印本条目',
-      en: 'MEC any-budget frame ranking preprint entry',
+      zh: 'MEC 可复用稀疏索引、证据发现与套娃式任意预算帧排序方法',
+      en: 'MEC method for reusable sparse indexing, evidence discovery, and matryoshka any-budget frame ranking',
     },
     summary: {
       zh: '生成一条可被任意预算截断的帧优先序列，使证据从局部线索逐步扩展到时间上下文，并降低重复选帧的延迟。',
@@ -265,15 +285,15 @@ export const publications = [
 export const ongoing = [
   {
     index: 'A',
-    title: { zh: '生成促进理解的 test-time scaling', en: 'Generation-guided test-time scaling for understanding' },
+    title: { zh: '生成怎样帮助理解', en: 'How generation can help understanding' },
     body: {
-      zh: '研究额外推理计算怎样产生可检查的假设、证据与修正过程，让测试时扩展带来更可靠的多模态理解。',
-      en: 'Studying how additional inference compute can produce inspectable hypotheses, evidence, and corrections for more reliable multimodal understanding.',
+      zh: '研究生成目标、内部生成特征与候选假设怎样暴露模型尚未理解的部分，再用原始观测定位、核验和修正。',
+      en: 'Studying how generative objectives, internal features, and candidate hypotheses can expose what a model has not yet understood, then using observations to ground, test, and revise them.',
     },
   },
   {
     index: 'B',
-    title: { zh: 'Long-horizon streaming video thinking', en: 'Long-horizon streaming video thinking' },
+    title: { zh: '长时程流式视频理解', en: 'Long-horizon streaming video understanding' },
     body: {
       zh: '面向持续到来的视频，探索分层记忆、事件更新与证据回看，使模型在低延迟约束下保持长期理解。',
       en: 'Exploring hierarchical memory, event updates, and evidence revisiting so models can sustain long-term understanding under low-latency constraints.',
@@ -283,9 +303,12 @@ export const ongoing = [
 
 export const news = [
   {
+    date: '2026.09',
+    text: { zh: '进入厦门大学人工智能博士阶段，开始新的 PhD 生活。', en: 'Beginning the Ph.D. stage in Artificial Intelligence at Xiamen University.' },
+  },
+  {
     date: '2026.05',
     text: { zh: '加入高德地图（阿里巴巴集团）实习，关注多模态与视频理解。', en: 'Started an internship at AMap, Alibaba Group, working on multimodal and video understanding.' },
-    userReported: true,
   },
   {
     date: '2026.03',
@@ -295,17 +318,18 @@ export const news = [
     date: '2026.03',
     text: { zh: 'QuoTA 发表在 AAAI 2026。', en: 'QuoTA appeared at AAAI 2026.' },
   },
-  {
-    date: '2026.03',
-    text: { zh: '发布 Event-Anchored Frame Selection 预印本。', en: 'Released the Event-Anchored Frame Selection preprint.' },
-  },
 ];
 
 export const experience = [
   {
-    period: { zh: '2024.09 至今', en: 'Sep 2024 - Present' },
-    title: { zh: '厦门大学 · 人工智能 · 硕博连读', en: 'Xiamen University · AI · M.S.-Ph.D. program' },
+    period: { zh: '2026.09 起', en: 'From Sep 2026' },
+    title: { zh: '厦门大学 · 人工智能 · 博士阶段', en: 'Xiamen University · AI · Ph.D. stage' },
     detail: { zh: 'MAC 实验室，导师曹刘娟教授、郑侠武副教授', en: 'MAC Lab, advised by Prof. Liujuan Cao and Assoc. Prof. Xiawu Zheng' },
+  },
+  {
+    period: { zh: '2024.09 - 2026.08', en: 'Sep 2024 - Aug 2026' },
+    title: { zh: '厦门大学 · 人工智能 · 硕博连读阶段', en: 'Xiamen University · AI · M.S.-Ph.D. track' },
+    detail: { zh: '在长视频理解与多模态推理方向开展研究', en: 'Research in long-video understanding and multimodal reasoning' },
   },
   {
     period: { zh: '2026.05 至今', en: 'May 2026 - Present' },

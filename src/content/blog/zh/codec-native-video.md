@@ -2,7 +2,7 @@
 title: "从视频压缩到 Codec-Native 多模态模型"
 description: "从视频编码基础一路读到 OneVision-Encoder、codec-video-prep、LLaVA-OneVision-2 与 Mage-VL 的论文设计、真实源码、复现差异和现有缺陷。"
 pubDate: 2026-08-18
-updatedDate: 2026-08-18
+updatedDate: 2026-08-19
 readingTime: "75 分钟"
 tags: ["Codec-Native", "Video Understanding", "Multimodal"]
 lang: "zh"
@@ -1368,7 +1368,7 @@ Codec-native 主要降低 `T_vit`，并通过减少投影后视觉 token 降低�
 需要谨慎的任务包括细密轨迹、手部微动作、逐帧计数、低运动静态文字、未来状态预测和对均匀时间连续性高度敏感的分析。此时应保留更多均匀帧或使用混合选择。
 
 
-## 第十一章　现有缺陷
+## 第十章　现有缺陷
 
 本章汇总论文与公开代码当前能够确认的缺口。它们来自前文的逐项审计，不表示作者已经在未公开分支中解决，也不否定 codec-native 路线本身。
 

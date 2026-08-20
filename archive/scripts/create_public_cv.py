@@ -173,15 +173,6 @@ paper_meta_style = ParagraphStyle(
     textColor=MUTED,
     spaceAfter=5,
 )
-small_style = ParagraphStyle(
-    "Small",
-    parent=body_style,
-    fontSize=7.6,
-    leading=12,
-    textColor=MUTED,
-)
-
-
 def section(title: str):
     return KeepTogether([
         Spacer(1, 2),
@@ -236,14 +227,14 @@ story.extend([
     header,
     Spacer(1, 5),
     HRFlowable(width="100%", thickness=1.1, color=PINE, spaceAfter=4),
-    Paragraph("厦门大学人工智能研究院与 MAC 实验室硕博连读生。研究长视频理解、多模态推理与高效测试时计算，关注模型怎样在有限的帧、视觉 token 和推理预算下组织长时程视觉证据。2026 年 5 月起在高德地图（阿里巴巴集团）实习。", lead_style),
+    Paragraph("厦门大学人工智能研究院与 MAC 实验室博士生。研究长视频理解、多模态推理与生成促进理解，关注模型怎样组织长时程视觉证据、生成可检查的候选解释，并回到原始观测中核验与修正。2026 年 5 月起在高德地图（阿里巴巴集团）实习，同年 9 月进入博士阶段。", lead_style),
 ])
 
 story.append(section("研究方向"))
 research_rows = [
     ["01", "长视频理解", "从查询相关性、语义边界和事件锚点出发，研究长视频中的帧选择与视觉 token 分配。"],
-    ["02", "测试时扩展", "探索生成、验证与计算分配怎样促进可靠的多模态理解。"],
-    ["03", "流式视频思考", "面向持续到来的视频，研究分层记忆、事件更新和证据回看。"],
+    ["02", "生成促进理解", "探索生成目标、内部特征与候选假设怎样帮助模型形成可核验的多模态理解。"],
+    ["03", "流式视频理解", "面向持续到来的视频，研究分层记忆、事件更新和证据回看。"],
 ]
 research_table = Table(
     [[Paragraph(i, date_style), Paragraph(t, item_title_style), Paragraph(d, body_soft_style)] for i, t, d in research_rows],
@@ -261,40 +252,35 @@ story.append(research_table)
 
 story.append(section("教育与经历"))
 story.extend([
-    timeline("2024.09 至今", "厦门大学 · 人工智能 · 硕博连读", "MAC 实验室，导师为曹刘娟教授、郑侠武副教授。GPA 3.76 / 4.0。"),
+    timeline("2026.09 起", "厦门大学 · 人工智能 · 博士阶段", "MAC 实验室，导师为曹刘娟教授、郑侠武副教授。"),
     timeline("2026.05 至今", "高德地图 · 阿里巴巴集团 · 实习", "多模态与视频理解方向。"),
+    timeline("2024.09 - 2026.08", "厦门大学 · 人工智能 · 硕博连读阶段", "长视频理解与多模态推理方向。GPA 3.76 / 4.0。"),
     timeline("2020.09 - 2024.06", "福州大学 · 人工智能 · 工学学士", "本科阶段开始研究生成式视觉与人脸美学。"),
 ])
 
-story.append(section("代表性研究贡献"))
-story.extend([
-    timeline("WFS-SB", "从查询相关性信号中寻找语义边界", "利用小波变换过滤高频噪声，按语义片段的重要性分配帧预算，再在片段内兼顾相关性与多样性。"),
-    timeline("QuoTA", "在跨模态交互前分配视觉 token", "借助 CoT 把复杂查询拆成可判定线索，并让帧级 token 预算随查询相关性变化。"),
-    timeline("EFS", "用事件锚点组织长视频证据", "先把视频划分为视觉一致的事件，再定位查询相关锚点，最后做全局补充与去冗余。"),
-])
-
-story.append(PageBreak())
 story.append(section("论文"))
 story.extend([
     paper(1, "Wavelet-based Frame Selection by Detecting Semantic Boundary for Long Video Understanding", "<b>Wang Chen</b>, Yuhui Zeng, Yongdong Luo, Tianyu Xie, Luojun Lin, Jiayi Ji, Yan Zhang, Xiawu Zheng", "CVPR 2026", '<link href="https://arxiv.org/abs/2603.00512" color="#284B44">Paper</link> · <link href="https://github.com/MAC-AutoML/WFS-SB" color="#284B44">Code</link>'),
     paper(2, "QuoTA: Query-oriented Token Assignment via CoT Query Decouple for Long Video Comprehension", "Yongdong Luo*, <b>Wang Chen*</b>, Weizhong Huang, Shukang Yin, Haojia Lin, Jinfa Huang, Chaoyou Fu, Jiayi Ji, Xiawu Zheng, Jiebo Luo", "AAAI 2026 · * Equal contribution", '<link href="https://doi.org/10.1609/aaai.v40i29.39595" color="#284B44">Paper</link> · <link href="https://github.com/MAC-AutoML/QuoTA" color="#284B44">Code</link>'),
     paper(3, "Event-Anchored Frame Selection for Effective Long-Video Understanding", "<b>Wang Chen*</b>, Yongdong Luo*, Yuhui Zeng, Luojun Lin, Tianyu Xie, Fei Chao, Rongrong Ji, Xiawu Zheng", "arXiv preprint · * Equal contribution", '<link href="https://arxiv.org/abs/2603.00983" color="#284B44">Paper</link>'),
     paper(4, "Customized Automatic Face Beautification", "<b>Wang Chen*</b>, Peizhen Chen*, Weijie Chen, Luojun Lin", "ICASSP 2023 · * Equal contribution", '<link href="https://doi.org/10.1109/ICASSP49357.2023.10096554" color="#284B44">Paper</link>'),
+])
+
+story.append(PageBreak())
+story.append(section("论文（续）"))
+story.extend([
     paper(5, "Real-Time Interactive Face Beautification", "Luojun Lin, <b>Wang Chen</b>, Peizhen Chen, Xiawu Zheng, Lianwen Jin", "SSRN preprint", '<link href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4923335" color="#284B44">Paper</link>'),
     paper(6, "Training-Free Multimodal Large Language Model Orchestration", "Tianyu Xie, Yuexiao Ma, Yuhang Wu, <b>Wang Chen</b>, Jiayi Ji, Tat-Seng Chua, Xiawu Zheng, Rongrong Ji", "ICML 2026", '<link href="https://arxiv.org/abs/2508.10016" color="#284B44">Paper</link>'),
-    paper(7, "SocialOmni: Benchmarking Audio-Visual Social Interaction in Omni Models", "Tianyu Xie, Jinfa Huang, Yuexiao Ma, Rongfang Luo, Yan Yang, <b>Wang Chen</b>, et al.", "arXiv preprint", '<link href="https://arxiv.org/abs/2603.16859" color="#284B44">Paper</link>'),
-    paper(8, "WaveZip: Wavelet-Guided Spatiotemporal Token Compression for Video Large Language Models", "Yuhui Zeng, <b>Wang Chen</b>, Jinfa Huang, Tianyu Xie, Yongdong Luo, Jiayi Ji, Xiawu Zheng, Jiebo Luo", "arXiv preprint", '<link href="https://arxiv.org/abs/2607.23265" color="#284B44">Paper</link>'),
-    paper(9, "One Ranking, Any Budget: Multi-scale Evidence Compilation for Efficient Long-Video Understanding", "<b>Wang Chen</b>, Yu Chen, Xiang Wang, Shuai Li, Jinfa Huang, Xiawu Zheng", "arXiv preprint", '<link href="https://arxiv.org/abs/2608.05707" color="#284B44">Paper</link>'),
+    paper(7, "SocialOmni: Benchmarking Audio-Visual Social Interactivity in Omni Models", "Tianyu Xie, Jinfa Huang, Yuexiao Ma, Rongfang Luo, Yan Yang, <b>Wang Chen</b>, et al.", "arXiv preprint", '<link href="https://arxiv.org/abs/2603.16859" color="#284B44">Paper</link>'),
+    paper(8, "WaveZip: Wavelet-Driven Space-Time Decoupling for Video Token Condensation", "Yuhui Zeng, <b>Wang Chen</b>, Jinfa Huang, Tianyu Xie, Yongdong Luo, Jiayi Ji, Xiawu Zheng, Jiebo Luo", "arXiv preprint", '<link href="https://arxiv.org/abs/2607.23265" color="#284B44">Paper</link>'),
+    paper(9, "One Ranking, Any Budget: Matryoshka Evidence-to-Context Frame Selection for Long-Video Understanding", "<b>Wang Chen</b>, Yu Chen, Xiang Wang, Shuai Li, Jinfa Huang, Xiawu Zheng", "arXiv preprint", '<link href="https://arxiv.org/abs/2608.05707" color="#284B44">Paper</link>'),
 ])
 
 story.append(section("进行中的研究"))
 story.extend([
-    timeline("A", "生成促进理解的 test-time scaling", "研究额外推理计算怎样产生可检查的假设、证据与修正过程。"),
-    timeline("B", "Long-horizon streaming video thinking", "研究持续视频中的分层记忆、事件更新与证据回看。"),
+    timeline("A", "生成怎样帮助理解", "研究生成目标、内部生成特征与候选假设怎样暴露理解缺口，再由观测完成定位、核验和修正。"),
+    timeline("B", "长时程流式视频理解", "研究持续视频中的分层记忆、事件更新与证据回看。"),
 ])
-
-story.append(section("说明"))
-story.append(Paragraph("论文状态与作者顺序按公开论文页面核对。进行中的工作仅陈述研究问题，未列出未经公开验证的结果。为便于公开传播，本简历不包含手机号、出生信息与其他非学术个人字段。", small_style))
 
 OUTPUT.parent.mkdir(parents=True, exist_ok=True)
 PublicCV(str(OUTPUT)).build(story)

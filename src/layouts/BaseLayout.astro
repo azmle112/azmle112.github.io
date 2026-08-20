@@ -11,19 +11,21 @@ interface Props {
   title: string;
   description: string;
   locale: Locale;
-  image?: string;
+  image?: string | null;
   article?: boolean;
   noFooter?: boolean;
   alternateHref?: string | null;
   languageSwitchHref?: string;
+  publishedTime?: Date;
+  modifiedTime?: Date;
 }
 
-const { title, description, locale, image = '/images/wang-chen.jpg', article = false, noFooter = false, alternateHref, languageSwitchHref } = Astro.props;
+const { title, description, locale, image = '/og.png', article = false, noFooter = false, alternateHref, languageSwitchHref, publishedTime, modifiedTime } = Astro.props;
 const pathname = Astro.url.pathname;
 const canonical = Astro.site ? new URL(pathname, Astro.site) : Astro.url;
 const alternatePathname = alternateHref === undefined ? alternatePath(locale, pathname) : alternateHref;
 const alternate = alternatePathname ? (Astro.site ? new URL(alternatePathname, Astro.site) : new URL(alternatePathname, Astro.url)) : undefined;
-const fullImage = Astro.site ? new URL(image, Astro.site) : new URL(image, Astro.url);
+const fullImage = image ? (Astro.site ? new URL(image, Astro.site) : new URL(image, Astro.url)) : undefined;
 ---
 
 <!doctype html>
@@ -43,9 +45,23 @@ const fullImage = Astro.site ? new URL(image, Astro.site) : new URL(image, Astro
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={fullImage} />
+    {fullImage && <meta property="og:image" content={fullImage} />}
     <meta property="og:locale" content={locale === 'zh' ? 'zh_CN' : 'en_US'} />
-    <meta name="twitter:card" content="summary_large_image" />
+    {article && publishedTime && <meta property="article:published_time" content={publishedTime.toISOString()} />}
+    {article && modifiedTime && <meta property="article:modified_time" content={modifiedTime.toISOString()} />}
+    <meta name="twitter:card" content={fullImage ? 'summary_large_image' : 'summary'} />
+    <script is:inline>
+      (() => {
+        const enabled = window.location.hostname === 'azmle112.github.io';
+        document.documentElement.dataset.traffic = enabled ? 'enabled' : 'local';
+        if (!enabled || document.querySelector('script[data-vercount]')) return;
+        const script = document.createElement('script');
+        script.src = 'https://events.vercount.one/js';
+        script.defer = true;
+        script.dataset.vercount = 'true';
+        document.head.appendChild(script);
+      })();
+    </script>
   </head>
   <body>
     <Header locale={locale} pathname={pathname} alternateHref={languageSwitchHref} />

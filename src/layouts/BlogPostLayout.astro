@@ -6,6 +6,7 @@ import type { MarkdownHeading } from 'astro';
 import type { Locale } from '../data/profile';
 import { formatDate, localePath, t } from '../lib/i18n';
 import BaseLayout from './BaseLayout.astro';
+import BlogVisual from '../components/BlogVisual.astro';
 
 interface Props {
   post: CollectionEntry<'blog'>;
@@ -20,9 +21,26 @@ const translationPost = (await getCollection('blog', ({ data }) => data.translat
 const translationSlug = translationPost?.id.split('/').pop()?.replace(/\.(md|mdx)$/, '');
 const translationHref = translationSlug ? localePath(locale === 'zh' ? 'en' : 'zh', `/blog/${translationSlug}/`) : undefined;
 const languageSwitchHref = translationHref ?? localePath(locale === 'zh' ? 'en' : 'zh', '/blog/');
+const articleUrl = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astro.url;
+const coverUrl = Astro.site ? new URL('/og.png', Astro.site) : new URL('/og.png', Astro.url);
+const structuredData = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.pubDate.toISOString(),
+  dateModified: (post.data.updatedDate ?? post.data.pubDate).toISOString(),
+  inLanguage: locale === 'zh' ? 'zh-CN' : 'en-US',
+  author: { '@type': 'Person', name: locale === 'zh' ? '陈旺' : 'Wang Chen' },
+  mainEntityOfPage: articleUrl.toString(),
+  image: coverUrl.toString(),
+  keywords: post.data.tags,
+}).replace(/</g, '\\u003c');
 ---
-<BaseLayout title={`${post.data.title} | ${locale === 'zh' ? '陈旺' : 'Wang Chen'}`} description={post.data.description} locale={locale} article alternateHref={translationHref ?? null} languageSwitchHref={languageSwitchHref}>
+<BaseLayout title={`${post.data.title} | ${locale === 'zh' ? '陈旺' : 'Wang Chen'}`} description={post.data.description} locale={locale} article publishedTime={post.data.pubDate} modifiedTime={post.data.updatedDate ?? post.data.pubDate} alternateHref={translationHref ?? null} languageSwitchHref={languageSwitchHref}>
+  <script is:inline type="application/ld+json" set:html={structuredData}></script>
   <article class="article-page">
+    <div class="reading-progress" aria-hidden="true"><i data-reading-progress></i></div>
     <header class="article-header shell">
       <a class="back-link" href={localePath(locale, '/blog/')}><ArrowLeft size={15} />{locale === 'zh' ? '返回文章' : 'Back to notes'}</a>
       <div class="article-kicker"><span>{post.data.tags[0]}</span><span>Research Notes</span></div>
@@ -31,12 +49,17 @@ const languageSwitchHref = translationHref ?? localePath(locale === 'zh' ? 'en' 
       <div class="article-byline">
         <span><CalendarDays size={15} />{formatDate(post.data.pubDate, locale)}</span>
         <span><Clock3 size={15} />{post.data.readingTime}{locale === 'en' ? ` ${copy.minRead}` : ''}</span>
+        <span class="traffic-count">{copy.pageViews} <strong id="vercount_value_page_pv">—</strong></span>
+        <span class="traffic-local">{locale === 'zh' ? '本地预览不计数' : 'Local previews are not counted'}</span>
         {post.data.updatedDate && <span>{copy.latestUpdate} {formatDate(post.data.updatedDate, locale)}</span>}
         {translationHref && <a href={translationHref}>{locale === 'zh' ? 'Read in English' : '阅读中文版'}<ArrowUpRight size={13} /></a>}
       </div>
+      <div class="article-cover">
+        <BlogVisual visualKey={post.data.translationKey} title={post.data.title} />
+      </div>
     </header>
 
-    <div class="article-shell shell">
+    <div class:list={['article-shell shell', { 'without-toc': toc.length === 0 }]}>
       {toc.length > 0 && (
         <aside class="article-toc" aria-label={locale === 'zh' ? '文章目录' : 'Table of contents'}>
           <details open data-article-toc>
@@ -69,4 +92,31 @@ const languageSwitchHref = translationHref ?? localePath(locale === 'zh' ? 'en' 
 <script>
   const toc = document.querySelector<HTMLDetailsElement>('[data-article-toc]');
   if (toc && window.matchMedia('(max-width: 760px)').matches) toc.open = false;
+
+  const progress = document.querySelector<HTMLElement>('[data-reading-progress]');
+  const updateProgress = () => {
+    if (!progress) return;
+    const article = document.querySelector<HTMLElement>('.article-page');
+    if (!article) return;
+    const start = article.offsetTop;
+    const distance = Math.max(article.offsetHeight - window.innerHeight, 1);
+    const value = Math.min(1, Math.max(0, (window.scrollY - start) / distance));
+    progress.style.transform = `scaleX(${value})`;
+  };
+  updateProgress();
+  window.addEventListener('scroll', updateProgress, { passive: true });
+
+  const tocLinks = [...document.querySelectorAll<HTMLAnchorElement>('.article-toc a')];
+  const headings = tocLinks
+    .map((link) => document.getElementById(decodeURIComponent(link.hash.slice(1))))
+    .filter((heading): heading is HTMLElement => Boolean(heading));
+
+  if ('IntersectionObserver' in window && headings.length) {
+    const observer = new IntersectionObserver((entries) => {
+      const visible = entries.filter((entry) => entry.isIntersecting).at(-1);
+      if (!visible) return;
+      tocLinks.forEach((link) => link.classList.toggle('active', link.hash === `#${visible.target.id}`));
+    }, { rootMargin: '-18% 0px -68% 0px' });
+    headings.forEach((heading) => observer.observe(heading));
+  }
 </script>

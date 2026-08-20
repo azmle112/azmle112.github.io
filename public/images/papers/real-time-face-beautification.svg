@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Real-Time Interactive Face Beautification</title>
+  <desc id="desc">A target beauty score moves a face representation across an aesthetic hyperplane in latent space and produces an updated portrait in real time.</desc>
+  <rect width="1600" height="900" fill="#f7f8f5"/>
+  <rect x="72" y="76" width="1456" height="748" rx="32" fill="#ffffff" stroke="#d9ddd6" stroke-width="3"/>
+
+  <text x="118" y="150" fill="#18352e" font-family="Georgia, serif" font-size="42" font-weight="700">Real-time interactive beautification</text>
+  <text x="118" y="198" fill="#68756f" font-family="Arial, sans-serif" font-size="23">Optimization-free latent space interpolation</text>
+
+  <g transform="translate(120 270)">
+    <rect width="300" height="360" rx="24" fill="#edf1ed" stroke="#cad3cd" stroke-width="3"/>
+    <circle cx="150" cy="120" r="66" fill="#d7b77a" opacity=".72"/>
+    <path d="M92 122c8-68 106-92 126-18 5 18 2 41-5 57-3-43-23-68-62-70-27-1-49 12-59 31Z" fill="#284b44"/>
+    <path d="M74 318c12-87 58-130 76-130s65 43 76 130" fill="#6e8b82"/>
+    <path d="M128 131c8 5 16 7 22 7s14-2 22-7" fill="none" stroke="#6c4f32" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="124" cy="116" r="4" fill="#18352e"/>
+    <circle cx="176" cy="116" r="4" fill="#18352e"/>
+    <text x="150" y="340" text-anchor="middle" fill="#18352e" font-family="Arial, sans-serif" font-size="22" font-weight="700">INPUT PORTRAIT</text>
+  </g>
+
+  <g transform="translate(502 270)">
+    <rect width="594" height="360" rx="24" fill="#f2efe7" stroke="#d9c89d" stroke-width="3"/>
+    <text x="42" y="54" fill="#8e5a27" font-family="Arial, sans-serif" font-size="22" font-weight="700">LATENT SPACE</text>
+    <path d="M85 276 501 83" stroke="#d6b878" stroke-width="8" stroke-linecap="round"/>
+    <path d="M82 302 498 109" stroke="#d6b878" stroke-width="2" stroke-dasharray="12 12" opacity=".72"/>
+    <text x="335" y="86" fill="#8e5a27" font-family="Arial, sans-serif" font-size="20">aesthetic hyperplane</text>
+    <circle cx="192" cy="226" r="17" fill="#c75c3b"/>
+    <circle cx="394" cy="132" r="20" fill="#284b44"/>
+    <path d="M214 215c60-30 104-49 157-72" fill="none" stroke="#284b44" stroke-width="5" stroke-linecap="round" marker-end="url(#arrow)"/>
+    <rect x="76" y="306" width="442" height="8" rx="4" fill="#d5dbd6"/>
+    <rect x="76" y="306" width="306" height="8" rx="4" fill="#284b44"/>
+    <circle cx="382" cy="310" r="17" fill="#d6b878" stroke="#284b44" stroke-width="4"/>
+    <text x="76" y="347" fill="#68756f" font-family="Arial, sans-serif" font-size="18">TARGET SCORE</text>
+    <text x="514" y="347" text-anchor="end" fill="#18352e" font-family="Georgia, serif" font-size="28" font-weight="700">4.6</text>
+  </g>
+
+  <g transform="translate(1178 270)">
+    <rect width="300" height="360" rx="24" fill="#e8f0ed" stroke="#abc1b9" stroke-width="3"/>
+    <circle cx="150" cy="120" r="66" fill="#d7b77a" opacity=".72"/>
+    <path d="M92 122c8-68 106-92 126-18 5 18 2 41-5 57-3-43-23-68-62-70-27-1-49 12-59 31Z" fill="#284b44"/>
+    <path d="M74 318c12-87 58-130 76-130s65 43 76 130" fill="#52756a"/>
+    <path d="M125 135c14 13 36 13 50 0" fill="none" stroke="#6c4f32" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="124" cy="116" r="4" fill="#18352e"/>
+    <circle cx="176" cy="116" r="4" fill="#18352e"/>
+    <text x="150" y="340" text-anchor="middle" fill="#18352e" font-family="Arial, sans-serif" font-size="22" font-weight="700">LIVE RESULT</text>
+  </g>
+
+  <path d="M432 450h56" stroke="#284b44" stroke-width="5" marker-end="url(#arrow)"/>
+  <path d="M1108 450h56" stroke="#284b44" stroke-width="5" marker-end="url(#arrow)"/>
+
+  <g transform="translate(635 682)">
+    <circle cx="42" cy="42" r="33" fill="none" stroke="#c75c3b" stroke-width="6"/>
+    <path d="M42 23v21l15 10" fill="none" stroke="#c75c3b" stroke-width="5" stroke-linecap="round"/>
+    <text x="94" y="51" fill="#18352e" font-family="Arial, sans-serif" font-size="24" font-weight="700">No iterative optimization at inference</text>
+  </g>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 10 5 0 10Z" fill="#284b44"/>
+    </marker>
+  </defs>
+</svg>

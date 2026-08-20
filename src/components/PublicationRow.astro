@@ -6,16 +6,22 @@ import { localize } from '../lib/i18n';
 interface Props {
   publication: any;
   locale: Locale;
-  compact?: boolean;
 }
 
-const { publication, locale, compact = false } = Astro.props;
+const { publication, locale } = Astro.props;
 const authorParts = publication.authors.split('Wang Chen');
 ---
 
-<article class:list={['publication-row', { compact }]}>
+<article class="publication-row">
   <div class="publication-media">
-    <img src={publication.image} alt={localize(publication.alt, locale)} width="720" height="450" loading="lazy" />
+    <img
+      class:list={{ 'publication-image-expanded': publication.key === 'face-beautification' }}
+      src={publication.image}
+      alt={localize(publication.alt, locale)}
+      width="720"
+      height="450"
+      loading="lazy"
+    />
     <span class="publication-year">{publication.year}</span>
   </div>
   <div class="publication-copy">

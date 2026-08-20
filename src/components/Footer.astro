@@ -7,6 +7,11 @@ import { t } from '../lib/i18n';
 interface Props { locale: Locale }
 const { locale } = Astro.props;
 const copy = t(locale);
+const updatedAt = new Date();
+const updatedIso = updatedAt.toISOString();
+const updatedLabel = new Intl.DateTimeFormat(locale === 'zh' ? 'zh-CN' : 'en-US', {
+  year: 'numeric', month: '2-digit', day: '2-digit',
+}).format(updatedAt);
 ---
 
 <footer class="site-footer">
@@ -29,6 +34,13 @@ const copy = t(locale);
           </a>
         ))}
       </div>
+      <div class="site-stats" aria-label={locale === 'zh' ? '网站信息' : 'Site information'}>
+        <span>{copy.siteUpdated} <time datetime={updatedIso}>{updatedLabel}</time></span>
+        <span class="traffic-count">{copy.siteViews} <strong id="vercount_value_site_pv">—</strong></span>
+        <span class="traffic-count">{copy.siteVisitors} <strong id="vercount_value_site_uv">—</strong></span>
+        <span class="traffic-local">{locale === 'zh' ? '本地预览不计数' : 'Local previews are not counted'}</span>
+      </div>
+      <p class="stats-privacy">{locale === 'zh' ? '页面仅展示汇总计数，不公开访客 IP 或定位。' : 'Only aggregate counts are shown; visitor IP and location are not displayed.'}</p>
       <p>© {new Date().getFullYear()} Wang Chen · Xiamen, China</p>
     </div>
   </div>

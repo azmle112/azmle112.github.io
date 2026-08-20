@@ -2,7 +2,7 @@
 import { ArrowRight, BookOpen, Download, GraduationCap, Mail, MapPin } from '@lucide/astro';
 import { getCollection } from 'astro:content';
 import type { Locale } from '../data/profile';
-import { experience, links, news, ongoing, profile, publications, researchSteps } from '../data/profile';
+import { experience, links, news, ongoing, profile, publications, researchSteps, visionParagraphs } from '../data/profile';
 import { localePath, localize, t } from '../lib/i18n';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import BlogCard from './BlogCard.astro';
@@ -13,7 +13,7 @@ interface Props { locale: Locale }
 const { locale } = Astro.props;
 const copy = t(locale);
 const allPosts = await getCollection('blog', ({ data }) => data.lang === locale && !data.draft);
-const posts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 2);
+const posts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 4);
 const pageTitle = locale === 'zh' ? '陈旺 | 多模态与长视频理解' : 'Wang Chen | Multimodal and Long-Video Understanding';
 const description = localize(profile.intro, locale);
 ---
@@ -36,6 +36,7 @@ const description = localize(profile.intro, locale);
       <div class="hero-footnotes">
         <span><MapPin size={15} stroke-width={1.8} aria-hidden="true" />Xiamen, China</span>
         <span>{localize(profile.internship, locale)}</span>
+        <span><a href={links.wechat} target="_blank" rel="noreferrer">{localize(profile.wechatNote, locale)}</a></span>
       </div>
     </div>
     <figure class="portrait">
@@ -47,10 +48,23 @@ const description = localize(profile.intro, locale);
         <span>{locale === 'zh' ? '研究与生活' : 'Research & life'}</span>
       </figcaption>
     </figure>
-    <div class="hero-vision">
-      <p class="eyebrow">{copy.visionLabel}</p>
-      <h2>{localize(profile.visionTitle, locale)}</h2>
-      <p>{localize(profile.vision, locale)}</p>
+  </section>
+
+  <section class="vision-section" aria-labelledby="vision-title">
+    <div class="shell vision-grid">
+      <div class="vision-heading">
+        <p class="eyebrow">{copy.visionLabel}</p>
+        <h2 id="vision-title">{localize(profile.visionTitle, locale)}</h2>
+        <p class="vision-statement">{localize(profile.vision, locale)}</p>
+      </div>
+      <div class="vision-body">
+        {visionParagraphs.map((paragraph, index) => (
+          <div class="vision-paragraph">
+            <span>0{index + 1}</span>
+            <p>{localize(paragraph, locale)}</p>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 
@@ -130,7 +144,7 @@ const description = localize(profile.intro, locale);
         {news.map((item) => (
           <li>
             <time>{item.date}</time>
-            <p>{localize(item.text, locale)} {item.userReported && <small>{copy.userReported}</small>}</p>
+            <p>{localize(item.text, locale)}</p>
           </li>
         ))}
       </ol>

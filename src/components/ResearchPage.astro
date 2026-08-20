@@ -1,7 +1,7 @@
 ---
 import { ArrowDownRight } from '@lucide/astro';
 import type { Locale } from '../data/profile';
-import { ongoing, profile, publications, researchSteps } from '../data/profile';
+import { ongoing, profile, publications, researchSteps, visionParagraphs } from '../data/profile';
 import { localize } from '../lib/i18n';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import InnerHero from './InnerHero.astro';
@@ -14,6 +14,14 @@ const description = localize(profile.vision, locale);
 ---
 <BaseLayout title={title} description={description} locale={locale}>
   <InnerHero eyebrow="Research" title={localize(profile.visionTitle, locale)} description={description} />
+  <section class="shell research-manifesto" aria-label={locale === 'zh' ? '研究愿景' : 'Research vision'}>
+    <p class="manifesto-lead">{locale === 'zh' ? '我想让模型在现实时间尺度上形成能够继续修正的理解。下面三段话，说明这条路线为何从长视频出发，又为何走向生成与证据核验。' : 'I want models to form an understanding that remains revisable over real-world time scales. These three passages explain why the path begins with long video and leads toward generation and evidence checking.'}</p>
+    <div class="manifesto-grid">
+      {visionParagraphs.map((paragraph, index) => (
+        <article><span>0{index + 1}</span><p>{localize(paragraph, locale)}</p></article>
+      ))}
+    </div>
+  </section>
   <section class="shell research-narrative" aria-label={locale === 'zh' ? '研究路线' : 'Research path'}>
     {researchSteps.map((step) => (
       <article class="research-chapter">
@@ -46,8 +54,8 @@ const description = localize(profile.vision, locale);
     <div class="shell ongoing-grid">
       <div class="ongoing-intro">
         <p class="eyebrow accent">Ongoing</p>
-        <h2>{locale === 'zh' ? '从选取证据走向持续思考' : 'From selecting evidence to sustained thought'}</h2>
-        <p>{locale === 'zh' ? '接下来的工作会把研究对象从输入预算推向推理预算与流式状态。' : 'The next projects move from input budgets toward inference budgets and streaming state.'}</p>
+        <h2>{locale === 'zh' ? '从选取证据走向生成、核验与持续理解' : 'From evidence selection to generation, verification, and sustained understanding'}</h2>
+        <p>{locale === 'zh' ? '接下来的工作会把长视频里的事件结构与生成模型连接起来，并让每个候选解释回到观测中接受检查。' : 'The next projects connect event structure in long video with generative models, then return every candidate explanation to the observations for testing.'}</p>
       </div>
       <div class="ongoing-items">
         {ongoing.map((item) => (

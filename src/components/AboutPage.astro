@@ -8,7 +8,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 interface Props { locale: Locale }
 const { locale } = Astro.props;
 const title = locale === 'zh' ? '关于 | 陈旺' : 'About | Wang Chen';
-const description = locale === 'zh' ? '陈旺，厦门大学 MAC 实验室人工智能方向硕博连读生，研究长视频理解与多模态推理。' : 'Wang Chen is an M.S.-Ph.D. student at Xiamen University MAC Lab, studying long-video understanding and multimodal reasoning.';
+const description = locale === 'zh' ? '陈旺，厦门大学 MAC 实验室人工智能方向博士生，研究长视频理解、多模态推理与生成促进理解。' : 'Wang Chen is a Ph.D. student at Xiamen University MAC Lab, studying long-video understanding, multimodal reasoning, and generation for understanding.';
 ---
 <BaseLayout title={title} description={description} locale={locale}>
   <section class="about-hero shell">
@@ -18,7 +18,7 @@ const description = locale === 'zh' ? '陈旺，厦门大学 MAC 实验室人工
       <h1>{locale === 'zh' ? '关于我' : 'About me'}</h1>
       <p class="about-lead">{localize(profile.intro, locale)}</p>
       <p>{locale === 'zh' ? '我在厦门大学人工智能研究院与 MAC 实验室学习。本科就读于福州大学人工智能专业，从生成式视觉与人脸美学开始接触研究，后来把注意力转向长视频中的信息冗余、事件结构与多模态推理。' : 'I study at the Institute of Artificial Intelligence and MAC Lab, Xiamen University. I earned my bachelor’s degree in AI at Fuzhou University, where I began with generative vision and facial aesthetics before turning to information redundancy, event structure, and multimodal reasoning in long videos.'}</p>
-      <p>{locale === 'zh' ? '2026 年 5 月起，我在高德地图（阿里巴巴集团）实习。接下来希望继续研究两个相连的问题。一个问题关心生成怎样促进测试时理解，另一个问题关心模型怎样在持续到来的视频里保持长时程思考。' : 'Since May 2026, I have been interning at AMap, Alibaba Group. My next questions concern how generation can improve understanding at test time and how models can sustain long-horizon thought over streaming video.'}</p>
+      <p>{locale === 'zh' ? '2026 年 5 月起，我在高德地图（阿里巴巴集团）实习，同年 9 月进入博士阶段。接下来希望继续研究两个相连的问题。一个问题关心生成怎样把模糊判断变成可检查的候选，另一个问题关心模型怎样在持续到来的视频里维护事件记忆，并回到原始证据中核验这些候选。' : 'I began an internship at AMap, Alibaba Group, in May 2026 and enter the Ph.D. stage in September. My next questions ask how generation can turn an uncertain judgment into inspectable candidates, and how a model can maintain event memory over a continuing video stream while returning to the original evidence to verify them.'}</p>
       <div class="about-links">
         <a href={links.email}><Mail size={16} />cw501907@gmail.com</a>
         <a href={links.cv} target="_blank"><Download size={16} />{locale === 'zh' ? '下载中文简历' : 'Download Chinese CV'}</a>

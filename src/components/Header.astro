@@ -55,6 +55,12 @@ const altHref = alternateHref ?? alternatePath(locale, pathname);
   const button = document.querySelector('[data-menu-button]');
   const nav = document.querySelector('[data-site-nav]');
 
+  const closeMenu = () => {
+    button?.setAttribute('aria-expanded', 'false');
+    nav?.classList.remove('is-open');
+    document.body.classList.remove('menu-is-open');
+  };
+
   button?.addEventListener('click', () => {
     const isOpen = button.getAttribute('aria-expanded') === 'true';
     button.setAttribute('aria-expanded', String(!isOpen));
@@ -62,9 +68,17 @@ const altHref = alternateHref ?? alternatePath(locale, pathname);
     document.body.classList.toggle('menu-is-open', !isOpen);
   });
 
-  nav?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => {
-    button?.setAttribute('aria-expanded', 'false');
-    nav?.classList.remove('is-open');
-    document.body.classList.remove('menu-is-open');
-  }));
+  nav?.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      closeMenu();
+      (button as HTMLElement | null)?.focus();
+    }
+  });
+  window.matchMedia('(min-width: 761px)').addEventListener('change', closeMenu);
+
+  const header = document.querySelector('[data-header]');
+  const updateHeader = () => header?.classList.toggle('is-scrolled', window.scrollY > 12);
+  updateHeader();
+  window.addEventListener('scroll', updateHeader, { passive: true });
 </script>
