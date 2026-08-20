@@ -26,7 +26,6 @@ const updatedLabel = new Intl.DateTimeFormat(locale === 'zh' ? 'zh-CN' : 'en-US'
       </a>
     </div>
     <div class="footer-meta">
-      <p>{copy.sourceNote}</p>
       <div class="footer-links">
         {sources.map((source) => (
           <a href={source.url} target="_blank" rel="noreferrer">
@@ -40,7 +39,6 @@ const updatedLabel = new Intl.DateTimeFormat(locale === 'zh' ? 'zh-CN' : 'en-US'
         <span class="traffic-count">{copy.siteVisitors} <strong id="vercount_value_site_uv">—</strong></span>
         <span class="traffic-local">{locale === 'zh' ? '本地预览不计数' : 'Local previews are not counted'}</span>
       </div>
-      <p class="stats-privacy">{locale === 'zh' ? '页面仅展示汇总计数，不公开访客 IP 或定位。' : 'Only aggregate counts are shown; visitor IP and location are not displayed.'}</p>
       <p>© {new Date().getFullYear()} Wang Chen · Xiamen, China</p>
     </div>
   </div>

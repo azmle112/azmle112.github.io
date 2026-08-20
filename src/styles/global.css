@@ -2428,12 +2428,6 @@ html[data-traffic='local'] .traffic-count {
   color: #aeb8b1;
 }
 
-.stats-privacy {
-  margin: 0 0 7px;
-  color: #87958b;
-  font-size: 10px;
-}
-
 @media (max-width: 960px) {
   .hero {
     grid-template-columns: minmax(0, 1fr) 280px;
