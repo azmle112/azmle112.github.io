@@ -9,6 +9,7 @@ const { visualKey, title, compact = false } = Astro.props;
 const kind = visualKey.includes('codec') ? 'codec'
   : visualKey.includes('qwen') ? 'qwen'
   : visualKey.includes('harness') ? 'harness'
+  : visualKey.includes('streaming') ? 'streaming'
   : visualKey.includes('generation') ? 'generation'
   : 'notes';
 ---
@@ -19,7 +20,7 @@ const kind = visualKey.includes('codec') ? 'codec'
   </div>
   <div class="visual-orbit" aria-hidden="true"><i></i><i></i><i></i></div>
   <div class="visual-word" aria-hidden="true">
-    <span>{kind === 'codec' ? 'C' : kind === 'qwen' ? 'Q' : kind === 'harness' ? 'H' : kind === 'generation' ? 'G' : 'N'}</span>
-    <small>{kind === 'generation' ? 'observe / propose / verify' : kind}</small>
+    <span>{kind === 'codec' ? 'C' : kind === 'qwen' ? 'Q' : kind === 'harness' ? 'H' : kind === 'streaming' ? 'S' : kind === 'generation' ? 'G' : 'N'}</span>
+    <small>{kind === 'generation' ? 'observe / propose / verify' : kind === 'streaming' ? 'observe / update / act' : kind}</small>
   </div>
 </div>

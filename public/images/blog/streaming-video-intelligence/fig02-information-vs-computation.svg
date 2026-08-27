@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="937.8pt" height="473.184pt" viewBox="0 0 937.8 473.184" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-08-27T06:41:49.574555</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 473.184
+L 937.8 473.184
+L 937.8 0
+L 0 0
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 173.412 401.75424
+L 801.324 401.75424
+Q 801.324 401.75424 801.324 401.75424
+L 801.324 94.36896
+Q 801.324 94.36896 801.324 94.36896
+L 173.412 94.36896
+Q 173.412 94.36896 173.412 94.36896
+L 173.412 401.75424
+Q 173.412 401.75424 173.412 401.75424
+z
+" clip-path="url(#pcfae11f306)" style="fill: #ffffff; stroke: #c9d2df; stroke-width: 1.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 211.2714 228.333888
+L 449.5086 228.333888
+Q 466.1298 228.333888 466.1298 220.075776
+L 466.1298 115.473024
+Q 466.1298 107.214912 449.5086 107.214912
+L 211.2714 107.214912
+Q 194.6502 107.214912 194.6502 115.473024
+L 194.6502 220.075776
+Q 194.6502 228.333888 211.2714 228.333888
+z
+" clip-path="url(#pcfae11f306)" style="fill: #eaf2ff; stroke: #2f80ed; stroke-width: 1.3; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 525.2274 228.333888
+L 763.4646 228.333888
+Q 780.0858 228.333888 780.0858 220.075776
+L 780.0858 115.473024
+Q 780.0858 107.214912 763.4646 107.214912
+L 525.2274 107.214912
+Q 508.6062 107.214912 508.6062 115.473024
+L 508.6062 220.075776
+Q 508.6062 228.333888 525.2274 228.333888
+z
+" clip-path="url(#pcfae11f306)" style="fill: #e8f7f4; stroke: #2a9d8f; stroke-width: 1.3; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 211.2714 386.614368
+L 449.5086 386.614368
+Q 466.1298 386.614368 466.1298 378.356256
+L 466.1298 271.459584
+Q 466.1298 263.201472 449.5086 263.201472
+L 211.2714 263.201472
+Q 194.6502 263.201472 194.6502 271.459584
+L 194.6502 378.356256
+Q 194.6502 386.614368 211.2714 386.614368
+z
+" clip-path="url(#pcfae11f306)" style="fill: #f3f4f6; stroke: #98a2b3; stroke-width: 1.3; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 525.2274 386.614368
+L 763.4646 386.614368
+Q 780.0858 386.614368 780.0858 378.356256
+L 780.0858 271.459584
+Q 780.0858 263.201472 763.4646 263.201472
+L 525.2274 263.201472
+Q 508.6062 263.201472 508.6062 271.459584
+L 508.6062 378.356256
+Q 508.6062 386.614368 525.2274 386.614368
+z
+" clip-path="url(#pcfae11f306)" style="fill: #fff3e8; stroke: #f4a261; stroke-width: 1.3; stroke-linejoin: miter"/>
+   </g>
+   <g id="line2d_1">
+    <path d="M 487.368 401.75424
+L 487.368 94.36896
+" clip-path="url(#pcfae11f306)" style="fill: none; stroke: #c9d2df; stroke-width: 1.2; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_2">
+    <path d="M 173.412 248.0616
+L 801.324 248.0616
+" clip-path="url(#pcfae11f306)" style="fill: none; stroke: #c9d2df; stroke-width: 1.2; stroke-linecap: square"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 20px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #183b56" x="25.668" y="38.454315" transform="rotate(-0 25.668 38.454315)">Information Streaming and Computational Streaming</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #667085" x="25.668" y="54.174999" transform="rotate(-0 25.668 54.174999)">Causal visibility constrains evidence; incremental execution constrains reuse</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #e76f51" x="330.39" y="73.72368" transform="rotate(-0 330.39 73.72368)">Recompute history</text>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #2a9d8f" x="644.346" y="73.72368" transform="rotate(-0 644.346 73.72368)">Reuse persistent state</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; fill: #2f80ed" transform="translate(119.501516 191.749186) rotate(-90)">Causal</text>
+    <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; fill: #2f80ed" transform="translate(131.819109 189.42028) rotate(-90)">prefix</text>
+   </g>
+   <g id="text_6">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; fill: #667085" transform="translate(119.501516 345.292295) rotate(-90)">Future</text>
+    <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; fill: #667085" transform="translate(131.819109 352.951904) rotate(-90)">available</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #1f2937" transform="translate(257.5725 148.878009)">Protocol-level streaming</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #1f2937" transform="translate(330.39 163.683103)"/>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #1f2937" transform="translate(296.38875 178.488197)">V₀:t is legal</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #1f2937" transform="translate(253.454062 193.293291)">but re-encoded per query</text>
+   </g>
+   <g id="text_8">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'DejaVu Sans'; fill: #1f2937" transform="translate(580.752562 148.831134)">Stateful streaming</text>
+    <text style="font-weight: 700; font-size: 12px; font-family: 'DejaVu Sans'; fill: #1f2937" transform="translate(644.346 163.729978)"/>
+    <text style="font-weight: 700; font-size: 12px; font-family: 'DejaVu Sans'; fill: #1f2937" transform="translate(590.403188 178.535072)">causal evidence</text>
+    <text style="font-weight: 700; font-size: 12px; font-family: 'DejaVu Sans'; fill: #1f2937" transform="translate(575.720063 193.340166)">+ incremental reuse</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #1f2937" transform="translate(284.415 306.011529)">Offline analysis</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #1f2937" transform="translate(330.39 320.816623)"/>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #1f2937" transform="translate(295.769062 335.621717)">full episode</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #1f2937" transform="translate(266.660625 350.426811)">+ batch computation</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #1f2937" transform="translate(586.206937 306.011529)">Precomputed index</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #1f2937" transform="translate(644.346 320.816623)"/>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #1f2937" transform="translate(607.594125 335.621717)">useful reuse</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #1f2937" transform="translate(580.582875 350.426811)">without live causality</text>
+   </g>
+   <g id="text_11">
+    <text style="font-weight: 700; font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183b56" x="468.9" y="431.5752" transform="rotate(-0 468.9 431.5752)">Benchmark streaming   ≠   model streaming   ≠   system streaming</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pcfae11f306">
+   <rect x="7.2" y="7.2" width="923.4" height="458.784"/>
+  </clipPath>
+ </defs>
+</svg>

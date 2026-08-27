@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="937.8pt" height="473.184pt" viewBox="0 0 937.8 473.184" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-08-27T06:41:52.202468</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 473.184
+L 937.8 473.184
+L 937.8 0
+L 0 0
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 40.4424 411.847488
+L 177.1056 411.847488
+Q 193.7268 411.847488 193.7268 403.589376
+L 193.7268 326.513664
+Q 193.7268 318.255552 177.1056 318.255552
+L 40.4424 318.255552
+Q 23.8212 318.255552 23.8212 326.513664
+L 23.8212 403.589376
+Q 23.8212 411.847488 40.4424 411.847488
+z
+" clip-path="url(#pade9031a40)" style="fill: #f3f4f6; stroke: #667085; stroke-width: 1.3; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 215.8884 347.617728
+L 352.5516 347.617728
+Q 369.1728 347.617728 369.1728 339.359616
+L 369.1728 262.283904
+Q 369.1728 254.025792 352.5516 254.025792
+L 215.8884 254.025792
+Q 199.2672 254.025792 199.2672 262.283904
+L 199.2672 339.359616
+Q 199.2672 347.617728 215.8884 347.617728
+z
+" clip-path="url(#pade9031a40)" style="fill: #eaf2ff; stroke: #2f80ed; stroke-width: 1.3; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 391.3344 283.387968
+L 527.9976 283.387968
+Q 544.6188 283.387968 544.6188 275.129856
+L 544.6188 198.054144
+Q 544.6188 189.796032 527.9976 189.796032
+L 391.3344 189.796032
+Q 374.7132 189.796032 374.7132 198.054144
+L 374.7132 275.129856
+Q 374.7132 283.387968 391.3344 283.387968
+z
+" clip-path="url(#pade9031a40)" style="fill: #e8f7f4; stroke: #2a9d8f; stroke-width: 1.3; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 566.7804 219.158208
+L 703.4436 219.158208
+Q 720.0648 219.158208 720.0648 210.900096
+L 720.0648 133.824384
+Q 720.0648 125.566272 703.4436 125.566272
+L 566.7804 125.566272
+Q 550.1592 125.566272 550.1592 133.824384
+L 550.1592 210.900096
+Q 550.1592 219.158208 566.7804 219.158208
+z
+" clip-path="url(#pade9031a40)" style="fill: #fff3e8; stroke: #f4a261; stroke-width: 1.3; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 742.2264 154.928448
+L 888.1236 154.928448
+Q 904.7448 154.928448 904.7448 146.670336
+L 904.7448 69.594624
+Q 904.7448 61.336512 888.1236 61.336512
+L 742.2264 61.336512
+Q 725.6052 61.336512 725.6052 69.594624
+L 725.6052 146.670336
+Q 725.6052 154.928448 742.2264 154.928448
+z
+" clip-path="url(#pade9031a40)" style="fill: #f0eeff; stroke: #6c63ff; stroke-width: 1.3; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 187.963384 353.27088
+Q 195.111048 334.177633 201.592352 316.864405
+" clip-path="url(#pade9031a40)" style="fill: none; stroke: #667085; stroke-width: 1.7; stroke-linecap: round"/>
+    <path d="M 197.33429 320.822803
+L 201.592352 316.864405
+L 202.204233 322.645893
+z
+" clip-path="url(#pade9031a40)" style="fill: #667085; stroke: #667085; stroke-width: 1.7; stroke-linecap: round"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 363.409384 289.04112
+Q 370.557048 269.947873 377.038352 252.634645
+" clip-path="url(#pade9031a40)" style="fill: none; stroke: #2f80ed; stroke-width: 1.7; stroke-linecap: round"/>
+    <path d="M 372.78029 256.593043
+L 377.038352 252.634645
+L 377.650233 258.416133
+z
+" clip-path="url(#pade9031a40)" style="fill: #2f80ed; stroke: #2f80ed; stroke-width: 1.7; stroke-linecap: round"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 538.855384 224.81136
+Q 546.003048 205.718113 552.484352 188.404885
+" clip-path="url(#pade9031a40)" style="fill: none; stroke: #2a9d8f; stroke-width: 1.7; stroke-linecap: round"/>
+    <path d="M 548.22629 192.363283
+L 552.484352 188.404885
+L 553.096233 194.186373
+z
+" clip-path="url(#pade9031a40)" style="fill: #2a9d8f; stroke: #2a9d8f; stroke-width: 1.7; stroke-linecap: round"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 714.301384 160.5816
+Q 721.449048 141.488353 727.930352 124.175125
+" clip-path="url(#pade9031a40)" style="fill: none; stroke: #f4a261; stroke-width: 1.7; stroke-linecap: round"/>
+    <path d="M 723.67229 128.133523
+L 727.930352 124.175125
+L 728.542233 129.956613
+z
+" clip-path="url(#pade9031a40)" style="fill: #f4a261; stroke: #f4a261; stroke-width: 1.7; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 20px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #183b56" x="25.668" y="38.454315" transform="rotate(-0 25.668 38.454315)">Capability Progression toward Continuous Visual Intelligence</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #667085" x="25.668" y="54.174999" transform="rotate(-0 25.668 54.174999)">Each step adds a system requirement; later stages still retain earlier capabilities</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 11.5px; font-family: 'DejaVu Sans'; fill: #1f2937" transform="translate(73.263258 346.852635)">Long video</text>
+    <text style="font-weight: 700; font-size: 11.5px; font-family: 'DejaVu Sans'; fill: #1f2937" transform="translate(108.774 361.130694)"/>
+    <text style="font-weight: 700; font-size: 11.5px; font-family: 'DejaVu Sans'; fill: #1f2937" transform="translate(47.29482 375.318909)">completed episode</text>
+    <text style="font-weight: 700; font-size: 11.5px; font-family: 'DejaVu Sans'; fill: #1f2937" transform="translate(48.770055 389.507124)">query after access</text>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 700; font-size: 11.5px; font-family: 'DejaVu Sans'; fill: #1f2937" transform="translate(227.792734 282.622875)">Causal streaming</text>
+    <text style="font-weight: 700; font-size: 11.5px; font-family: 'DejaVu Sans'; fill: #1f2937" transform="translate(284.22 296.900934)"/>
+    <text style="font-weight: 700; font-size: 11.5px; font-family: 'DejaVu Sans'; fill: #1f2937" transform="translate(249.038086 311.089149)">prefix-only</text>
+    <text style="font-weight: 700; font-size: 11.5px; font-family: 'DejaVu Sans'; fill: #1f2937" transform="translate(239.757227 325.367207)">future hidden</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 11.5px; font-family: 'DejaVu Sans'; fill: #1f2937" transform="translate(398.722289 218.438037)">Stateful streaming</text>
+    <text style="font-weight: 700; font-size: 11.5px; font-family: 'DejaVu Sans'; fill: #1f2937" transform="translate(459.666 232.716096)"/>
+    <text style="font-weight: 700; font-size: 11.5px; font-family: 'DejaVu Sans'; fill: #1f2937" transform="translate(400.719516 246.904311)">incremental reuse</text>
+    <text style="font-weight: 700; font-size: 11.5px; font-family: 'DejaVu Sans'; fill: #1f2937" transform="translate(412.580687 261.092525)">bounded state</text>
+   </g>
+   <g id="text_6">
+    <text style="font-weight: 700; font-size: 11.5px; font-family: 'DejaVu Sans'; fill: #1f2937" transform="translate(579.220203 154.208277)">Proactive system</text>
+    <text style="font-weight: 700; font-size: 11.5px; font-family: 'DejaVu Sans'; fill: #1f2937" transform="translate(635.112 168.486336)"/>
+    <text style="font-weight: 700; font-size: 11.5px; font-family: 'DejaVu Sans'; fill: #1f2937" transform="translate(594.299578 182.674551)">decide when</text>
+    <text style="font-weight: 700; font-size: 11.5px; font-family: 'DejaVu Sans'; fill: #1f2937" transform="translate(599.978602 196.862765)">to respond</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 11.5px; font-family: 'DejaVu Sans'; fill: #1f2937" transform="translate(757.451289 82.88441)">Continuous visual</text>
+    <text style="font-weight: 700; font-size: 11.5px; font-family: 'DejaVu Sans'; fill: #1f2937" transform="translate(777.130664 97.072625)">intelligence</text>
+    <text style="font-weight: 700; font-size: 11.5px; font-family: 'DejaVu Sans'; fill: #1f2937" transform="translate(815.175 111.350683)"/>
+    <text style="font-weight: 700; font-size: 11.5px; font-family: 'DejaVu Sans'; fill: #1f2937" transform="translate(758.770195 125.538898)">observe • update</text>
+    <text style="font-weight: 700; font-size: 11.5px; font-family: 'DejaVu Sans'; fill: #1f2937" transform="translate(755.558281 139.727113)">predict • ask • act</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #667085" x="131.859" y="431.5752" transform="rotate(-0 131.859 431.5752)">global access</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #667085" x="298.071" y="431.5752" transform="rotate(-0 298.071 431.5752)">causal visibility</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #667085" x="464.283" y="431.5752" transform="rotate(-0 464.283 431.5752)">persistent state</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #667085" x="630.495" y="431.5752" transform="rotate(-0 630.495 431.5752)">response policy</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #667085" x="796.707" y="431.5752" transform="rotate(-0 796.707 431.5752)">long-running lifecycle</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pade9031a40">
+   <rect x="7.2" y="7.2" width="923.4" height="458.784"/>
+  </clipPath>
+ </defs>
+</svg>

@@ -944,6 +944,7 @@ h3 {
 .visual-codec { background: #d8e5df; }
 .visual-qwen { background: #eadfd4; color: #6e4336; }
 .visual-harness { background: #e4e2d5; color: #525a3e; }
+.visual-streaming { background: #d9e7e5; color: #285b57; }
 .visual-generation { background: #dce1eb; color: #3f4d6b; }
 
 .visual-grid {
