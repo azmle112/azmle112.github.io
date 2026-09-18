@@ -15,11 +15,6 @@ const kind = visualKey.includes('code-as-world') ? 'world'
   : 'notes';
 ---
 
-{visualKey === 'qwen35-technical-analysis' ? (
-  <div class:list={['blog-visual', 'visual-qwen35', { compact }]}>
-    <img src="/images/blog/qwen35-technical-analysis/01-architecture.svg" alt="Qwen3.5 的视觉前端与 3∶1 混合语言主干" width="1100" height="590" loading={compact ? 'lazy' : 'eager'} decoding="async" />
-  </div>
-) : (
 <div class:list={['blog-visual', `visual-${kind}`, { compact }]} role="img" aria-label={`${title} visual`}>
   <div class="visual-grid" aria-hidden="true">
     {Array.from({ length: 12 }).map((_, index) => <i style={`--i:${index}`}></i>)}
@@ -30,9 +25,3 @@ const kind = visualKey.includes('code-as-world') ? 'world'
     <small>{kind === 'world' ? 'hypothesize / execute / verify' : kind === 'generation' ? 'observe / propose / verify' : kind === 'streaming' ? 'observe / update / act' : kind}</small>
   </div>
 </div>
-)}
-
-<style>
-  .visual-qwen35 { background: #fafbf7; }
-  .visual-qwen35 img { display: block; width: 100%; height: 100%; object-fit: contain; }
-</style>
