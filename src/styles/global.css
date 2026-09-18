@@ -2284,6 +2284,21 @@ h3 {
   font-size: .84em;
 }
 
+.prose .katex-display {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 16px 4px;
+}
+
+.prose .katex-display > .katex {
+  text-align: left;
+}
+
+.prose .katex {
+  font-size: 1.06em;
+}
+
 .prose .equation {
   display: flex;
   margin: 1.8em 0;

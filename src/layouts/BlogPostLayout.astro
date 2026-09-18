@@ -7,6 +7,7 @@ import type { Locale } from '../data/profile';
 import { formatDate, localePath, t } from '../lib/i18n';
 import BaseLayout from './BaseLayout.astro';
 import BlogVisual from '../components/BlogVisual.astro';
+import 'katex/dist/katex.min.css';
 
 interface Props {
   post: CollectionEntry<'blog'>;
