@@ -1,4 +1,5 @@
 ---
+import ThemePicker from './ThemePicker.astro';
 import { Menu, X } from '@lucide/astro';
 import type { Locale } from '../data/profile';
 import { alternatePath, localePath, t } from '../lib/i18n';
@@ -11,74 +12,197 @@ interface Props {
 
 const { locale, pathname, alternateHref } = Astro.props;
 const copy = t(locale);
-const nav = [
-  { href: localePath(locale, '/'), label: copy.home, match: locale === 'zh' ? /^\/$/ : /^\/en\/$/ },
-  { href: localePath(locale, '/research/'), label: copy.research, match: /\/research\/$/ },
-  { href: localePath(locale, '/publications/'), label: copy.publications, match: /\/publications\/$/ },
-  { href: localePath(locale, '/blog/'), label: copy.notes, match: /\/blog(?:\/|$)/ },
-  { href: localePath(locale, '/about/'), label: copy.about, match: /\/about\/$/ },
+const homePath = localePath(locale, '/');
+const isHome = pathname.replace(/\/$/, '') === homePath.replace(/\/$/, '');
+const sections = [
+  { id: 'about', zh: '关于', en: 'About' },
+  { id: 'news', zh: '近况', en: 'News' },
+  { id: 'publications', zh: '论文', en: 'Publications' },
+  { id: 'experience', zh: '经历', en: 'Experience' },
+  { id: 'writing', zh: 'Blog', en: 'Blog' },
 ];
+const blogPath = localePath(locale, '/blog/');
 const altHref = alternateHref ?? alternatePath(locale, pathname);
 ---
 
-<header class="site-header" data-header>
+<header class="site-header academic-header" data-header data-home={isHome ? 'true' : 'false'}>
   <a class="skip-link" href="#content">{copy.skip}</a>
-  <div class="header-inner shell">
-    <a class="brand" href={localePath(locale, '/')} aria-label={locale === 'zh' ? '陈旺首页' : 'Wang Chen home'}>
-      <span class="brand-mark">WC</span>
-      <span class="brand-name">{locale === 'zh' ? '陈旺' : 'Wang Chen'}</span>
+  <div class="academic-header-inner shell">
+    <a class="academic-brand" href={homePath} aria-label={locale === 'zh' ? '陈旺首页' : 'Wang Chen home'}>
+      <span>{locale === 'zh' ? '陈旺' : 'Wang Chen'}</span>
+      <span class="academic-brand-secondary">{locale === 'zh' ? 'Wang Chen' : '陈旺'}</span>
     </a>
 
-    <button class="menu-button icon-button" type="button" aria-expanded="false" aria-controls="site-nav" aria-label={copy.nav} data-menu-button>
-      <Menu class="menu-open-icon" size={21} stroke-width={1.8} aria-hidden="true" />
-      <X class="menu-close-icon" size={21} stroke-width={1.8} aria-hidden="true" />
-    </button>
+    <ThemePicker locale={locale} />
 
-    <nav id="site-nav" class="site-nav" aria-label="Primary" data-site-nav>
-      <div class="nav-links">
-        {nav.map((item) => (
-          <a class:list={['nav-link', { active: item.match.test(pathname) }]} href={item.href} aria-current={item.match.test(pathname) ? 'page' : undefined}>
-            {item.label}
+    <nav id="site-nav" class="academic-navigation" aria-label={locale === 'zh' ? '主导航' : 'Primary navigation'} data-site-nav>
+      {sections.map((item) => {
+        const href = isHome ? `#${item.id}` : item.id === 'writing' ? blogPath : `${homePath}#${item.id}`;
+        const isBlog = !isHome && item.id === 'writing' && pathname.startsWith(blogPath);
+        return (
+          <a class:list={['academic-nav-link', { active: isBlog }]} href={href} data-section={isHome ? item.id : undefined} aria-current={href === pathname ? 'page' : undefined}>
+            {item[locale]}
           </a>
-        ))}
-      </div>
-      <a class="language-switch" href={altHref} hreflang={locale === 'zh' ? 'en' : 'zh-CN'} aria-label={locale === 'zh' ? 'Switch to English' : '切换到中文'}>
-        <span class:list={{ active: locale === 'zh' }}>中</span>
-        <i aria-hidden="true"></i>
-        <span class:list={{ active: locale === 'en' }}>EN</span>
-      </a>
+        );
+      })}
     </nav>
+
+    <div class="academic-header-actions">
+      <a class="academic-language" href={altHref} data-language-switch data-alternate-href={altHref} hreflang={locale === 'zh' ? 'en' : 'zh-CN'} aria-label={locale === 'zh' ? 'Switch to English' : '切换到中文'}>
+        <span class:list={{ selected: locale === 'zh' }}>中</span>
+        <span class="language-divider" aria-hidden="true">/</span>
+        <span class:list={{ selected: locale === 'en' }}>EN</span>
+      </a>
+      <button class="academic-menu-button" type="button" aria-expanded="false" aria-controls="site-nav" aria-label={copy.nav} data-menu-button data-open-label={copy.nav} data-close-label={copy.close}>
+        <Menu class="academic-open-icon" size={21} stroke-width={1.7} aria-hidden="true" />
+        <X class="academic-close-icon" size={21} stroke-width={1.7} aria-hidden="true" />
+      </button>
+    </div>
   </div>
 </header>
 
-<script>
-  const button = document.querySelector('[data-menu-button]');
-  const nav = document.querySelector('[data-site-nav]');
+<style>
+  .academic-header {
+    height: var(--header-height, 72px);
+    border-bottom: 1px solid var(--line, #e3e8ec);
+    background: rgb(248 252 255 / 82%);
+    box-shadow: none;
+    backdrop-filter: blur(18px);
+  }
+  .academic-header.is-scrolled { background: rgb(248 252 255 / 90%); box-shadow: none; }
+  .academic-header-inner { display: flex; height: 100%; align-items: center; justify-content: space-between; gap: 20px; }
+  .academic-brand { display: inline-flex; align-items: baseline; gap: 11px; flex-shrink: 0; color: var(--ink, #244d70); text-decoration: none; }
+  .academic-brand > span:first-child { font-family: var(--serif); font-size: 23px; font-weight: 650; letter-spacing: -.3px; }
+  .academic-brand-secondary { color: var(--muted); font-size: 14px; letter-spacing: .25px; }
+  .academic-navigation { display: flex; align-items: center; gap: 25px; margin-left: auto; }
+  .academic-nav-link { position: relative; padding: 24px 0; color: var(--ink-soft); font-size: 15px; line-height: 23px; text-decoration: none; white-space: nowrap; }
+  .academic-nav-link::after { position: absolute; right: 0; bottom: 15px; left: 0; height: 1px; background: #244d70; content: ''; transform: scaleX(0); transform-origin: left; transition: transform 160ms ease; }
+  .academic-nav-link:hover, .academic-nav-link.active { color: #244d70; }
+  .academic-nav-link:hover::after, .academic-nav-link.active::after { transform: scaleX(1); }
+  .academic-header-actions { display: flex; align-items: center; gap: 13px; flex-shrink: 0; }
+  .academic-language { display: inline-flex; min-height: 40px; align-items: center; gap: 8px; color: var(--muted); font-size: 14px; text-decoration: none; white-space: nowrap; }
+  .academic-language .selected { color: #244d70; font-weight: 650; }
+  .academic-language .language-divider { color: #c0c9d0; font-size: 14px; }
+  .academic-menu-button { display: none; width: 40px; height: 40px; padding: 0; align-items: center; justify-content: center; border: 1px solid var(--line); border-radius: 5px; background: transparent; color: #244d70; cursor: pointer; }
+  .academic-menu-button :global(.academic-close-icon) { display: none; }
+  .academic-menu-button[aria-expanded='true'] :global(.academic-open-icon) { display: none; }
+  .academic-menu-button[aria-expanded='true'] :global(.academic-close-icon) { display: block; }
+  @media (max-width: 1080px) {
+    .academic-header-inner { gap: 16px; }
+    .academic-navigation { gap: 20px; }
+    .academic-brand-secondary { display: none; }
+  }
+  @media (max-width: 900px) {
+    .academic-menu-button { display: flex; }
+    .academic-navigation { position: absolute; top: 100%; right: 0; left: 0; display: none; max-height: calc(100dvh - var(--header-height)); overflow-y: auto; padding: 10px max(22px, calc((100vw - var(--shell)) / 2)) 18px; border-bottom: 1px solid var(--line); background: #fff; box-shadow: 0 12px 20px rgb(36 77 112 / 5%); }
+    .academic-navigation.is-open { display: grid; gap: 0; }
+    .academic-nav-link { display: block; padding: 13px 4px; border-bottom: 1px solid var(--line); font-size: 17px; }
+    .academic-nav-link:last-child { border-bottom: 0; }
+    .academic-nav-link::after { display: none; }
+    .academic-nav-link.active { font-weight: 650; }
+    .academic-brand-secondary { display: inline; }
+  }
+  @media (max-width: 600px) {
+    .academic-header { height: 108px; }
+    .academic-header-inner { display: grid; grid-template-columns: 1fr auto; grid-template-rows: 58px 42px; gap: 0 12px; padding-block: 0; }
+    .academic-header-actions { grid-column: 2; grid-row: 1; }
+    .academic-header-inner :global(.theme-picker) { grid-column: 1 / -1; grid-row: 2; justify-self: center; }
+    .academic-brand-secondary { display: none; }
+  }
+  @media (max-width: 400px) {
+    .academic-header-inner { gap: 12px; }
+    .academic-header-actions { gap: 8px; }
+    .academic-brand-secondary { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .academic-nav-link::after { transition: none; }
+  }
+</style>
 
-  const closeMenu = () => {
-    button?.setAttribute('aria-expanded', 'false');
-    nav?.classList.remove('is-open');
-    document.body.classList.remove('menu-is-open');
+<script>
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  const button = header?.querySelector<HTMLButtonElement>('[data-menu-button]');
+  const nav = header?.querySelector<HTMLElement>('[data-site-nav]');
+  const languageSwitch = header?.querySelector<HTMLAnchorElement>('[data-language-switch]');
+  const isHome = header?.dataset.home === 'true';
+  const sectionLinks = [...(nav?.querySelectorAll<HTMLAnchorElement>('[data-section]') ?? [])];
+  const sections = sectionLinks.flatMap((link) => {
+    const section = document.getElementById(link.dataset.section ?? '');
+    return section ? [{ link, section }] : [];
+  });
+
+  const closeMenu = (restoreFocus = false) => {
+    if (!button || !nav) return;
+    const wasOpen = button.getAttribute('aria-expanded') === 'true';
+    button.setAttribute('aria-expanded', 'false');
+    button.setAttribute('aria-label', button.dataset.openLabel ?? 'Open navigation');
+    nav.classList.remove('is-open');
+    if (wasOpen && restoreFocus) button.focus();
   };
 
   button?.addEventListener('click', () => {
-    const isOpen = button.getAttribute('aria-expanded') === 'true';
-    button.setAttribute('aria-expanded', String(!isOpen));
-    nav?.classList.toggle('is-open', !isOpen);
-    document.body.classList.toggle('menu-is-open', !isOpen);
-  });
-
-  nav?.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') {
+    if (button.getAttribute('aria-expanded') === 'true') {
       closeMenu();
-      (button as HTMLElement | null)?.focus();
+      return;
     }
+    button.setAttribute('aria-expanded', 'true');
+    button.setAttribute('aria-label', button.dataset.closeLabel ?? 'Close navigation');
+    nav?.classList.add('is-open');
+    nav?.querySelector<HTMLAnchorElement>('a')?.focus();
   });
-  window.matchMedia('(min-width: 761px)').addEventListener('change', closeMenu);
+  nav?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => closeMenu()));
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && button?.getAttribute('aria-expanded') === 'true') closeMenu(true);
+  });
+  document.addEventListener('click', (event) => {
+    if (event.target instanceof Node && !header?.contains(event.target)) closeMenu();
+  });
+  header?.addEventListener('focusout', (event) => {
+    if (event.relatedTarget instanceof Node && !header.contains(event.relatedTarget)) closeMenu();
+  });
+  window.matchMedia('(min-width: 901px)').addEventListener('change', () => closeMenu());
 
-  const header = document.querySelector('[data-header]');
-  const updateHeader = () => header?.classList.toggle('is-scrolled', window.scrollY > 12);
-  updateHeader();
-  window.addEventListener('scroll', updateHeader, { passive: true });
+  const syncLanguageHash = () => {
+    if (!isHome || !languageSwitch) return;
+    const hash = window.location.hash;
+    const validHash = sectionLinks.some((link) => `#${link.dataset.section}` === hash);
+    languageSwitch.href = `${languageSwitch.dataset.alternateHref ?? ''}${validHash ? hash : ''}`;
+  };
+  const updatePosition = () => {
+    header?.classList.toggle('is-scrolled', window.scrollY > 12);
+    if (!isHome || sections.length === 0) return;
+    const readingLine = (header?.getBoundingClientRect().height ?? 72) + 100;
+    let current = sections[0];
+    let closestTop = -Infinity;
+    sections.forEach((entry) => {
+      const top = entry.section.getBoundingClientRect().top;
+      if (top <= readingLine && top > closestTop) {
+        current = entry;
+        closestTop = top;
+      }
+    });
+    if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2) {
+      current = sections.reduce((last, entry) => entry.section.getBoundingClientRect().top > last.section.getBoundingClientRect().top ? entry : last);
+    }
+    sectionLinks.forEach((link) => {
+      const active = link === current.link;
+      link.classList.toggle('active', active);
+      if (active) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+  };
+  let scrollFrame = 0;
+  const scheduleUpdate = () => {
+    if (scrollFrame) return;
+    scrollFrame = window.requestAnimationFrame(() => {
+      scrollFrame = 0;
+      updatePosition();
+    });
+  };
+  syncLanguageHash();
+  updatePosition();
+  window.addEventListener('scroll', scheduleUpdate, { passive: true });
+  window.addEventListener('resize', scheduleUpdate, { passive: true });
+  window.addEventListener('load', scheduleUpdate, { once: true });
+  window.addEventListener('hashchange', () => { syncLanguageHash(); scheduleUpdate(); });
 </script>

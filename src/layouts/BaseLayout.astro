@@ -4,6 +4,7 @@ import '@fontsource-variable/source-serif-4';
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import ThemeController from '../components/ThemeController.astro';
 import type { Locale } from '../data/profile';
 import { alternatePath } from '../lib/i18n';
 
@@ -29,17 +30,18 @@ const fullImage = image ? (Astro.site ? new URL(image, Astro.site) : new URL(ima
 ---
 
 <!doctype html>
-<html lang={locale === 'zh' ? 'zh-CN' : 'en'}>
+<html data-palette="blue" lang={locale === 'zh' ? 'zh-CN' : 'en'}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#f7f8f5" />
+    <meta name="theme-color" content="#ffffff" />
+    <ThemeController />
     <link rel="canonical" href={canonical} />
     {alternate && <link rel="alternate" hreflang={locale === 'zh' ? 'en' : 'zh-CN'} href={alternate} />}
     <link rel="alternate" hreflang="x-default" href={locale === 'zh' || !alternate ? canonical : alternate} />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.jpg" type="image/jpeg" />
     <title>{title}</title>
     <meta property="og:type" content={article ? 'article' : 'website'} />
     <meta property="og:title" content={title} />
@@ -50,18 +52,6 @@ const fullImage = image ? (Astro.site ? new URL(image, Astro.site) : new URL(ima
     {article && publishedTime && <meta property="article:published_time" content={publishedTime.toISOString()} />}
     {article && modifiedTime && <meta property="article:modified_time" content={modifiedTime.toISOString()} />}
     <meta name="twitter:card" content={fullImage ? 'summary_large_image' : 'summary'} />
-    <script is:inline>
-      (() => {
-        const enabled = window.location.hostname === 'azmle112.github.io';
-        document.documentElement.dataset.traffic = enabled ? 'enabled' : 'local';
-        if (!enabled || document.querySelector('script[data-vercount]')) return;
-        const script = document.createElement('script');
-        script.src = 'https://events.vercount.one/js';
-        script.defer = true;
-        script.dataset.vercount = 'true';
-        document.head.appendChild(script);
-      })();
-    </script>
   </head>
   <body>
     <Header locale={locale} pathname={pathname} alternateHref={languageSwitchHref} />

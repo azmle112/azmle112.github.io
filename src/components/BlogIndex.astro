@@ -3,21 +3,68 @@ import { getCollection } from 'astro:content';
 import type { Locale } from '../data/profile';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import BlogCard from './BlogCard.astro';
-import InnerHero from './InnerHero.astro';
 
 interface Props { locale: Locale }
 const { locale } = Astro.props;
 const posts = (await getCollection('blog', ({ data }) => data.lang === locale && !data.draft)).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-const title = locale === 'zh' ? '文章 | 陈旺' : 'Notes | Wang Chen';
-const description = locale === 'zh' ? '关于多模态模型、长视频理解与研究系统的技术笔记。' : 'Technical notes on multimodal models, long-video understanding, and research systems.';
+const title = locale === 'zh' ? 'Blog | 陈旺' : 'Blog | Wang Chen';
+const description = locale === 'zh' ? '关于视觉与多模态研究的笔记，也写一些学习和生活中的想法。' : 'Research notes on vision and multimodal learning, with occasional thoughts on academic life.';
 ---
 <BaseLayout title={title} description={description} locale={locale}>
-  <InnerHero eyebrow="Blog" title={locale === 'zh' ? '研究笔记' : 'Research notes'} description={locale === 'zh' ? '记录论文之外仍值得讲清楚的技术细节。文章保留来源、版本和仍未解决的疑问。' : 'Technical details worth explaining beyond papers, with sources, versions, and open questions kept visible.'} />
-  <section class="blog-index shell">
-    <div class="blog-index-meta">
-      <p>{locale === 'zh' ? `共 ${posts.length} 篇` : `${posts.length} posts`}</p>
-      <p>{locale === 'zh' ? '按时间倒序' : 'Newest first'}</p>
-    </div>
-    <div class="blog-index-list">{posts.map((post) => <BlogCard post={post} locale={locale} />)}</div>
+  <section class="post-directory" aria-labelledby="post-directory-title">
+    <header class="post-directory-header">
+      <h1 id="post-directory-title">Blog</h1>
+      <p class="post-directory-description">{description}</p>
+      <p class="post-directory-count">{locale === 'zh' ? `共 ${posts.length} 篇文章` : `${posts.length} posts`}</p>
+    </header>
+    <div class="post-directory-list">{posts.map((post) => <BlogCard post={post} locale={locale} />)}</div>
   </section>
 </BaseLayout>
+
+<style>
+  .post-directory {
+    width: min(820px, calc(100% - 64px));
+    margin-inline: auto;
+    padding-block: 54px 88px;
+  }
+
+  .post-directory-header {
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .post-directory-header h1 {
+    margin: 0 0 15px;
+    font-size: 34px;
+    line-height: 1.2;
+  }
+
+  .post-directory-description {
+    max-width: 720px;
+    margin: 0 0 16px;
+    color: var(--ink-soft);
+    font-size: 17px;
+    line-height: 1.75;
+  }
+
+  .post-directory-count {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  .post-directory-list {
+    display: block;
+  }
+
+  @media (max-width: 600px) {
+    .post-directory {
+      width: calc(100% - 36px);
+      padding-block: 34px 60px;
+    }
+
+    .post-directory-header h1 {
+      font-size: 31px;
+    }
+  }
+</style>

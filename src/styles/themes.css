@@ -1,0 +1,95 @@
+/* Shared palettes; blue is the default. */
+:root[data-palette] {
+  color-scheme: light;
+  --theme-background: radial-gradient(ellipse at 100% 0, #eaf4ff 0, transparent 52%), linear-gradient(180deg, #f9fcff, #fff 1350px);
+  --theme-header: rgb(248 252 255 / 88%);
+  --theme-footer: rgb(255 255 255 / 65%);
+  --theme-surface: #fff;
+  --theme-photo-ring: rgb(255 255 255 / 72%);
+}
+:root[data-palette='white'] {
+  --paper: #fff;
+  --paper-deep: #f5f7fa;
+  --ink: #202b38;
+  --ink-soft: #465465;
+  --muted: #667585;
+  --line: #e1e6eb;
+  --line-dark: #c8d1dc;
+  --pine: #245faa;
+  --pine-dark: #214f89;
+  --pine-soft: #edf3fb;
+  --brick: #9c6549;
+  --theme-background: #fff;
+  --theme-header: rgb(255 255 255 / 94%);
+  --theme-footer: #fff;
+}
+:root[data-palette='warm'] {
+  --paper: #fbf6ed;
+  --paper-deep: #f2e8d9;
+  --ink: #3c362f;
+  --ink-soft: #655b4f;
+  --muted: #746756;
+  --line: #e4d8c5;
+  --line-dark: #d2bea0;
+  --pine: #94603d;
+  --pine-dark: #7c4e31;
+  --pine-soft: #f1e5d5;
+  --brick: #aa7253;
+  --theme-background: radial-gradient(ellipse at 100% 0, #f3e4ca 0, transparent 55%), linear-gradient(180deg, #fcf8ef, #fffdf8 1500px);
+  --theme-header: rgb(252 248 239 / 90%);
+  --theme-footer: rgb(252 248 239 / 84%);
+  --theme-surface: #fffdf9;
+  --theme-photo-ring: rgb(255 252 245 / 76%);
+}
+:root[data-palette='midnight'] {
+  color-scheme: dark;
+  --paper: #0d1725;
+  --paper-deep: #111f32;
+  --ink: #e7eef7;
+  --ink-soft: #bacbdc;
+  --muted: #91a8c0;
+  --line: #2a3d53;
+  --line-dark: #425c77;
+  --pine: #83cfea;
+  --pine-dark: #a6dcf0;
+  --pine-soft: #1d344a;
+  --brick: #dcab8e;
+  --theme-background: radial-gradient(ellipse at 100% 0, #1b3654 0, transparent 52%), linear-gradient(180deg, #0d1725, #0d1725);
+  --theme-header: rgb(13 23 37 / 90%);
+  --theme-footer: #101c2c;
+  --theme-surface: #142236;
+  --theme-photo-ring: rgb(102 150 189 / 16%);
+}
+html[data-palette] body { background: var(--theme-background); }
+html[data-palette] .academic-header,
+html[data-palette] .academic-header.is-scrolled { background: var(--theme-header); }
+html[data-palette] .academic-footer { background: var(--theme-footer); }
+html[data-palette] .visitor-countries { background: var(--theme-surface); }
+html[data-palette] .profile-photo { box-shadow: 0 0 0 5px var(--theme-photo-ring); }
+html[data-palette]:not([data-palette='blue']) .academic-nav-link::after { background: var(--pine); }
+html[data-palette]:not([data-palette='blue']) .academic-nav-link.active,
+html[data-palette]:not([data-palette='blue']) .academic-nav-link:hover,
+html[data-palette]:not([data-palette='blue']) .academic-language .selected,
+html[data-palette]:not([data-palette='blue']) .academic-menu-button,
+html[data-palette]:not([data-palette='blue']) .academic-footer a { color: var(--pine); }
+html[data-palette]:not([data-palette='blue']) .section-number { color: var(--muted); }
+html[data-palette]:not([data-palette='blue']) .academic-language .language-divider { color: var(--line-dark); }
+html[data-palette]:not([data-palette='blue']) .news-dot { background: var(--brick); }
+html[data-palette]:not([data-palette='blue']) .institution-mark { border-color: var(--line); }
+html[data-palette='midnight'] .visitor-countries-widget { padding: 8px; border-radius: 5px; background: #fff; }
+@media (max-width: 900px) {
+  html[data-palette] .academic-navigation { background: var(--theme-surface); }
+}
+
+html[data-palette] .skip-link { background: var(--ink); color: var(--paper); }
+
+html[data-palette] .prose { color: var(--ink-soft); }
+html[data-palette='midnight'] { --white: #142236; }
+/* Keep technical diagrams on a light canvas so their original colors remain legible. */
+html[data-palette='midnight'] .prose figure {
+  --white: #ffffff; --ink: #233c52; --ink-soft: #4d657a; --muted: #6f8598;
+  --pine: #25629b; --pine-dark: #214e77; --pine-soft: #e5f0fb;
+  --paper-deep: #edf5fc; --line: #dce7f1; --line-dark: #bfd1e2;
+  --brick: #a05e47; --brick-soft: #efe4de;
+}
+@media (max-width: 600px) { :root { --header-height: 108px; } }

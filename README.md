@@ -24,11 +24,21 @@ pnpm preview
 - 中文博客：`src/content/blog/zh/`
 - 英文博客：`src/content/blog/en/`
 - 头像与论文图：`public/images/`
-- 公开简历：`public/files/cv-zh.pdf`
 - 原始资料留档：`archive/source/`
-- 公开简历生成器：`archive/scripts/create_public_cv.py`（需要 Python 与 `reportlab`）
 
 新增博客时复制一篇 Markdown，修改 frontmatter 中的 `title`、`description`、`pubDate`、`tags`、`lang` 与 `translationKey`。中文文章发布在 `/blog/<slug>/`，英文文章发布在 `/en/blog/<slug>/`。
+
+## 配色
+
+默认蓝白，顶栏圆点可切换纯白、暖色和深色。偏好保存在当前浏览器，中英文及内页共用。无法使用本地存储时仍可即时切换。
+
+## 访问统计
+
+页尾仅使用 [Flag Counter](https://flagcounter.me/details/kHg) 展示访客国家与地区来源。`VisitorCountries.astro` 在本地和预览域名使用官方不计数的实时图片接口，仅在正式站点 origin 加载计数图片；计数图片正常加载时会记录来源 IP。图片展示国家级旗帜及人数，详情页提供地区与地图。该服务按 IP 去重，不能等同于实际人数；来源记录从 2026-09-30 接入后开始，不能回溯旧访问。接入验证时已记录一次真实连通性测试访问，其余本地刷新不增加计数。图片加载失败时显示不可用提示。
+
+正式站点 origin 取自 Astro 的 `site` 配置。更换正式域名时同步更新 `SITE_URL`；中英文页面共用同一个 Flag Counter，不单独统计文章阅读量。
+
+计数器一次性管理密码保存在已忽略的 `archive/source/flagcounter-credentials.json`，不属于公开站点文件。
 
 ## GitHub Pages
 

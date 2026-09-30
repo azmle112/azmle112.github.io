@@ -1,0 +1,73 @@
+---
+import { ArrowUpRight, Earth } from '@lucide/astro';
+import type { Locale } from '../data/profile';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const zh = locale === 'zh';
+const code = 'kHg';
+const provider = 'https://flagcounter.me';
+const details = `${provider}/details/${code}`;
+const previewImage = `${provider}/api/counters/${code}/image`;
+const countingImage = `${provider}/${code}`;
+const canonicalOrigin = Astro.site?.origin;
+---
+
+<section class="visitor-countries" aria-labelledby="visitor-countries-title">
+  <div class="visitor-countries-copy">
+    <h2 id="visitor-countries-title"><Earth size={19} stroke-width={1.6} aria-hidden="true" />{zh ? '访客来源' : 'Visitor origins'}</h2>
+    <p>{zh ? '国家与地区 · 2026.09 起' : 'Countries & regions · Since Sep 2026'}</p>
+    <a href={details} target="_blank" rel="noreferrer">{zh ? '查看分布' : 'View locations'}<ArrowUpRight size={13} aria-hidden="true" /></a>
+  </div>
+  <div class="visitor-countries-widget">
+    <a href={details} target="_blank" rel="noreferrer" aria-label={zh ? '查看访客国家与地区统计' : 'View visitor statistics by country and region'}>
+      <img id="visitor-countries-image" src={previewImage} width="291" height="163" alt={zh ? '访客来源国家及人数，由 Flag Counter 提供' : 'Visitor countries and counts from Flag Counter'} referrerpolicy="no-referrer" decoding="async" />
+    </a>
+    <p id="visitor-countries-unavailable" hidden role="status">{zh ? '来源统计暂时无法连接' : 'Location statistics are temporarily unavailable'}</p>
+  </div>
+</section>
+
+<script is:inline data-canonical-origin={canonicalOrigin} data-counting-image={countingImage}>
+  (() => {
+    const script = document.currentScript;
+    const image = document.getElementById('visitor-countries-image');
+    const unavailable = document.getElementById('visitor-countries-unavailable');
+    if (!script || !image || !unavailable) return;
+
+    const showUnavailable = () => { image.hidden = true; unavailable.hidden = false; };
+    const timer = setTimeout(showUnavailable, 10000);
+    image.addEventListener('load', () => {
+      clearTimeout(timer);
+      image.hidden = false;
+      unavailable.hidden = true;
+    });
+    image.addEventListener('error', () => { clearTimeout(timer); showUnavailable(); });
+
+    // The API image is the provider's non-counting live preview. Only the
+    // canonical production origin switches to the visit-recording embed.
+    const isProduction = window.location.origin === script.dataset.canonicalOrigin &&
+      !['localhost', '127.0.0.1', '[::1]'].includes(window.location.hostname);
+    if (isProduction && script.dataset.countingImage) {
+      image.src = script.dataset.countingImage;
+    } else if (image.complete) {
+      clearTimeout(timer);
+      if (!image.naturalWidth) showUnavailable();
+    }
+  })();
+</script>
+
+<style>
+  .visitor-countries { display: flex; align-items: center; justify-content: space-between; gap: 22px 40px; padding: 20px 24px; border: 1px solid var(--line); border-radius: 10px; background: #fff; }
+  .visitor-countries-copy { min-width: 0; }
+  .visitor-countries h2 { display: flex; align-items: center; gap: 10px; margin: 0 0 8px; color: var(--pine); font-family: var(--sans); font-size: 15px; font-weight: 550; line-height: 1.6; }
+  .visitor-countries h2 svg { flex-shrink: 0; }
+  .visitor-countries p { margin: 0 0 6px; color: var(--muted); font-size: 14px; line-height: 1.7; }
+  .visitor-countries-copy a { display: inline-flex; align-items: center; gap: 4px; font-size: 14px; text-decoration: none; }
+  .visitor-countries-copy a:hover { text-decoration: underline; }
+  .visitor-countries-widget { min-width: 0; max-width: 100%; }
+  .visitor-countries-widget img { max-width: 100%; height: auto; }
+  .visitor-countries-widget [hidden] { display: none; }
+  @media (max-width: 600px) {
+    .visitor-countries { align-items: flex-start; flex-direction: column; gap: 16px; padding: 18px; }
+  }
+</style>

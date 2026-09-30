@@ -1,0 +1,66 @@
+---
+export function getStaticPaths() {
+  return import.meta.env.DEV ? [{ params: { palette: 'colors' } }] : [];
+}
+const options = [
+  { id: 'white', name: '纯白', note: '清楚、克制，接近传统学术主页。', colors: ['#ffffff', '#202b38', '#245faa'] },
+  { id: 'blue', name: '蓝白 · 当前', note: '淡蓝渐变，延续现在的清透感。', colors: ['#eaf4ff', '#233c52', '#25629b'] },
+  { id: 'warm', name: '暖纸', note: '象牙白与暖棕，更像一本研究手记。', colors: ['#fbf6ed', '#3c362f', '#94603d'] },
+  { id: 'midnight', name: '深海蓝', note: '深蓝底与浅青色链接，偏科技风格。', colors: ['#0d1725', '#e7eef7', '#83cfea'] },
+];
+---
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="robots" content="noindex,nofollow" />
+    <link rel="icon" href="/favicon.jpg" type="image/jpeg" />
+    <title>首页配色对比 · Wang Chen</title>
+  </head>
+  <body>
+    <header>
+      <div><p class="eyebrow">Wang Chen · Homepage</p><h1>选一个舒服的底色</h1><p>同一份内容、字号和布局。每个窗口都可以滚动，也可以打开完整首页。</p></div>
+      <a class="return-link" href="/">返回当前首页 ↗</a>
+    </header>
+    <main>
+      {options.map((option) => <section aria-labelledby={`name-${option.id}`}>
+        <div class="option-heading"><div><h2 id={`name-${option.id}`}>{option.name}</h2><p>{option.note}</p></div><div class="swatches" aria-hidden="true">{option.colors.map(color => <span style={`background:${color}`}></span>)}</div></div>
+        <div class="preview-window"><iframe src={`/?palette=${option.id}`} title={`${option.name}首页预览`}></iframe></div>
+        <a class="open-link" href={`/?palette=${option.id}`} target="_blank" rel="noopener">打开完整首页 ↗</a>
+      </section>)}
+    </main>
+  </body>
+</html>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 36px; color: #263447; background: #f2f4f7; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif; }
+  header { max-width: 1540px; margin: 0 auto 28px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .eyebrow { color: #6b7787; font-size: 13px; margin: 0 0 10px; }
+  h1 { font-size: 28px; margin: 0 0 12px; font-weight: 600; }
+  header p:last-child { margin: 0; color: #607084; font-size: 15px; line-height: 1.7; }
+  a { color: #345b88; text-decoration: none; font-size: 14px; }
+  a:hover { text-decoration: underline; text-underline-offset: 4px; }
+  a:focus-visible { outline: 2px solid #345b88; outline-offset: 5px; }
+  .return-link { flex-shrink: 0; }
+  main { max-width: 1540px; margin-inline: auto; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 28px; }
+  section { min-width: 0; }
+  .option-heading { display: flex; justify-content: space-between; align-items: center; gap: 14px; margin-bottom: 13px; }
+  h2 { margin: 0 0 6px; font-size: 19px; font-weight: 600; }
+  .option-heading p { margin: 0; color: #637083; font-size: 14px; line-height: 1.6; }
+  .swatches { display: flex; gap: 5px; }
+  .swatches span { width: 17px; height: 17px; border: 1px solid rgb(0 0 0 / 12%); border-radius: 50%; }
+  .preview-window { aspect-ratio: 1119 / 1120; overflow: hidden; border: 1px solid #d5dce4; border-radius: 8px; background: white; }
+  iframe { display: block; width: 1119px; height: 1120px; border: 0; transform-origin: 0 0; }
+  .open-link { display: inline-flex; margin-top: 10px; padding-block: 4px; }
+  @media(max-width: 650px) { body { padding: 22px 16px; } header { align-items: flex-start; flex-direction: column; gap: 12px; } main { grid-template-columns: 1fr; gap: 30px; } }
+</style>
+<script>
+  const observer = new ResizeObserver((entries) => {
+    for (const entry of entries) {
+      const iframe = entry.target.querySelector('iframe');
+      if (iframe) iframe.style.transform = `scale(${entry.contentRect.width / 1119})`;
+    }
+  });
+  document.querySelectorAll('.preview-window').forEach((element) => observer.observe(element));
+</script>

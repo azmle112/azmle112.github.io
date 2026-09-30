@@ -11,6 +11,7 @@ export default defineConfig({
   site,
   output: 'static',
   trailingSlash: 'always',
+  devToolbar: { enabled: false },
   integrations: [sitemap()],
   markdown: {
     processor: unified({

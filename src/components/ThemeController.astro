@@ -1,0 +1,35 @@
+---
+import '../styles/themes.css';
+---
+<script is:inline define:vars={{ previewEnabled: import.meta.env.DEV }}>
+  (() => {
+    const colors = { blue: '#f8fbff', white: '#ffffff', warm: '#fbf6ed', midnight: '#0d1725' };
+    const valid = (value) => Object.prototype.hasOwnProperty.call(colors, value);
+    const key = 'wang-chen-palette';
+    const preview = previewEnabled ? new URLSearchParams(location.search).get('palette') : null;
+    let saved;
+    try { saved = localStorage.getItem(key); } catch {}
+    const apply = (value) => {
+      const palette = valid(value) ? value : 'blue';
+      document.documentElement.dataset.palette = palette;
+      document.querySelector('meta[name="theme-color"]')?.setAttribute('content', colors[palette]);
+      document.querySelectorAll('[data-theme-choice]').forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.themeChoice === palette)));
+    };
+    apply(valid(preview) ? preview : saved);
+    document.addEventListener('DOMContentLoaded', () => {
+      apply(document.documentElement.dataset.palette);
+      document.querySelectorAll('[data-theme-choice]').forEach((button) => button.addEventListener('click', () => {
+        apply(button.dataset.themeChoice);
+        try { localStorage.setItem(key, button.dataset.themeChoice); } catch {}
+        if (previewEnabled && preview) {
+          const url = new URL(location.href);
+          url.searchParams.delete('palette');
+          history.replaceState(null, '', url);
+        }
+      }));
+    }, { once: true });
+    window.addEventListener('storage', (event) => {
+      if (!valid(preview) && (event.key === key || event.key === null)) apply(event.newValue);
+    });
+  })();
+</script>

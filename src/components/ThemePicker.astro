@@ -1,0 +1,22 @@
+---
+import type { Locale } from '../data/profile';
+const { locale } = Astro.props as { locale: Locale };
+const themes = [
+  { id: 'blue', zh: '蓝白', en: 'Blue', color: '#d7eaff' },
+  { id: 'white', zh: '纯白', en: 'White', color: '#ffffff' },
+  { id: 'warm', zh: '暖色', en: 'Warm', color: '#ecd8b7' },
+  { id: 'midnight', zh: '深色', en: 'Midnight', color: '#1b3654' },
+];
+---
+<div class="theme-picker" role="group" aria-label={locale === 'zh' ? '配色风格' : 'Color theme'}>
+  {themes.map((theme) => <button type="button" data-theme-choice={theme.id} aria-pressed={theme.id === 'blue' ? 'true' : 'false'} aria-label={theme[locale]} title={theme[locale]} style={`--swatch: ${theme.color}`}><span aria-hidden="true"></span></button>)}
+</div>
+<style>
+  .theme-picker { display: flex; align-items: center; flex-shrink: 0; gap: 2px; }
+  button { display: grid; place-items: center; width: 32px; height: 40px; padding: 0; border: 0; border-radius: 5px; background: transparent; cursor: pointer; }
+  span { width: 19px; height: 19px; border: 1px solid #879bb580; border-radius: 50%; background: var(--swatch); }
+  button[aria-pressed='true'] span { outline: 2px solid var(--pine); outline-offset: 3px; }
+  button:hover span { box-shadow: 0 0 0 3px var(--line); }
+  button:focus-visible { outline: 2px solid var(--pine); outline-offset: 1px; }
+  @media (max-width: 600px) { button { width: 44px; height: 42px; } }
+</style>

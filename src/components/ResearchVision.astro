@@ -1,0 +1,29 @@
+---
+import type { Locale } from '../data/profile';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const zh = locale === 'zh';
+const image = '/images/research-vision.png';
+---
+
+<figure class="research-vision">
+  <div class="research-vision-scroll" tabindex="0" role="region" aria-label={zh ? '研究愿景图，可横向滚动' : 'Research vision diagram, horizontally scrollable'}>
+    <a href={image} target="_blank" rel="noreferrer" aria-label={zh ? '查看研究愿景原图' : 'Open the full-size research vision diagram'}>
+      <img src={image} width="2172" height="724" alt={zh
+        ? '从视频流中选择重要观测，持续维护对象与事件的长期状态，进而建模环境变化并预测未来。图中依次展示高效感知、长期理解与世界建模。'
+        : 'Efficient perception selects important observations from video; persistent understanding maintains long-term state; world modeling captures change and predicts what comes next.'} />
+    </a>
+  </div>
+</figure>
+
+<style>
+  .research-vision { margin: 26px 0 0; }
+  .research-vision-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: #fff; }
+  .research-vision-scroll:focus-visible { outline: 2px solid var(--pine); outline-offset: 4px; }
+  .research-vision-scroll a { display: block; }
+  .research-vision img { width: 100%; height: auto; }
+  @media (max-width: 600px) {
+    .research-vision img { width: 720px; max-width: none; }
+    .research-vision-scroll a { width: 720px; }
+  }
+</style>

@@ -1,12 +1,11 @@
 ---
-import { ArrowLeft, ArrowUpRight, CalendarDays, Clock3 } from '@lucide/astro';
+import { ArrowLeft, ArrowUpRight } from '@lucide/astro';
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import type { MarkdownHeading } from 'astro';
 import type { Locale } from '../data/profile';
 import { formatDate, localePath, t } from '../lib/i18n';
 import BaseLayout from './BaseLayout.astro';
-import BlogVisual from '../components/BlogVisual.astro';
 import 'katex/dist/katex.min.css';
 
 interface Props {
@@ -42,25 +41,19 @@ const structuredData = JSON.stringify({
   <script is:inline type="application/ld+json" set:html={structuredData}></script>
   <article class="article-page">
     <div class="reading-progress" aria-hidden="true"><i data-reading-progress></i></div>
-    <header class="article-header shell">
-      <a class="back-link" href={localePath(locale, '/blog/')}><ArrowLeft size={15} />{locale === 'zh' ? '返回文章' : 'Back to notes'}</a>
-      <div class="article-kicker"><span>{post.data.tags[0]}</span><span>Research Notes</span></div>
-      <h1>{post.data.title}</h1>
-      <p class="article-description">{post.data.description}</p>
-      <div class="article-byline">
-        <span><CalendarDays size={15} />{formatDate(post.data.pubDate, locale)}</span>
-        <span><Clock3 size={15} />{post.data.readingTime}{locale === 'en' ? ` ${copy.minRead}` : ''}</span>
-        <span class="traffic-count">{copy.pageViews} <strong id="vercount_value_page_pv">—</strong></span>
-        <span class="traffic-local">{locale === 'zh' ? '本地预览不计数' : 'Local previews are not counted'}</span>
-        {post.data.updatedDate && <span>{copy.latestUpdate} {formatDate(post.data.updatedDate, locale)}</span>}
+    <header class="post-heading">
+      <a class="post-heading-back" href={localePath(locale, '/blog/')}><ArrowLeft size={15} />{locale === 'zh' ? '返回 Blog' : 'Back to Blog'}</a>
+      <h1 class="post-heading-title">{post.data.title}</h1>
+      <p class="post-heading-description">{post.data.description}</p>
+      <div class="post-heading-meta">
+        <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate, locale)}</time>
+        <span>{post.data.readingTime}{locale === 'en' ? ` ${copy.minRead}` : ''}</span>
+        {post.data.updatedDate && <span>{copy.latestUpdate} <time datetime={post.data.updatedDate.toISOString()}>{formatDate(post.data.updatedDate, locale)}</time></span>}
         {translationHref && <a href={translationHref}>{locale === 'zh' ? 'Read in English' : '阅读中文版'}<ArrowUpRight size={13} /></a>}
-      </div>
-      <div class="article-cover">
-        <BlogVisual visualKey={post.data.translationKey} title={post.data.title} />
       </div>
     </header>
 
-    <div class:list={['article-shell shell', { 'without-toc': toc.length === 0 }]}>
+    <div class:list={['article-shell shell post-reading-layout', { 'without-toc': toc.length === 0 }]}>
       {toc.length > 0 && (
         <aside class="article-toc" aria-label={locale === 'zh' ? '文章目录' : 'Table of contents'}>
           <details open data-article-toc>
@@ -89,6 +82,101 @@ const structuredData = JSON.stringify({
     </div>
   </article>
 </BaseLayout>
+
+<style>
+  .post-heading {
+    width: min(980px, calc(100% - 64px));
+    margin-inline: auto;
+    padding-block: 46px 30px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .post-heading-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 25px;
+    color: var(--pine-dark);
+    font-size: 14px;
+    text-decoration: none;
+  }
+
+  .post-heading-back:hover {
+    text-decoration: underline;
+  }
+
+  .post-heading-title {
+    max-width: 920px;
+    margin: 0 0 17px;
+    font-size: clamp(29px, 3.2vw, 38px);
+    font-weight: 600;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+  }
+
+  .post-heading-description {
+    max-width: 850px;
+    margin: 0 0 20px;
+    color: var(--ink-soft);
+    font-size: 17px;
+    line-height: 1.75;
+  }
+
+  .post-heading-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 7px 20px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .post-heading-meta > span,
+  .post-heading-meta > a {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 5px;
+  }
+
+  .post-heading-meta strong {
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+
+  .post-heading-meta a {
+    align-items: center;
+    color: var(--pine-dark);
+    text-decoration: none;
+  }
+
+  .post-heading-meta a:hover {
+    text-decoration: underline;
+  }
+
+  .post-reading-layout {
+    padding-top: 38px;
+  }
+
+  @media (max-width: 600px) {
+    .post-heading {
+      width: calc(100% - 36px);
+      padding-block: 30px 25px;
+    }
+
+    .post-heading-back {
+      margin-bottom: 21px;
+    }
+
+    .post-heading-title {
+      font-size: 28px;
+    }
+
+    .post-reading-layout {
+      padding-top: 28px;
+    }
+  }
+</style>
 
 <script>
   const toc = document.querySelector<HTMLDetailsElement>('[data-article-toc]');

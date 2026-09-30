@@ -1,8 +1,9 @@
 ---
 import { ArrowUpRight, Mail } from '@lucide/astro';
 import type { Locale } from '../data/profile';
-import { links, sources } from '../data/profile';
+import { links } from '../data/profile';
 import { t } from '../lib/i18n';
+import VisitorCountries from './VisitorCountries.astro';
 
 interface Props { locale: Locale }
 const { locale } = Astro.props;
@@ -10,36 +11,53 @@ const copy = t(locale);
 const updatedAt = new Date();
 const updatedIso = updatedAt.toISOString();
 const updatedLabel = new Intl.DateTimeFormat(locale === 'zh' ? 'zh-CN' : 'en-US', {
-  year: 'numeric', month: '2-digit', day: '2-digit',
+  year: 'numeric', month: '2-digit', day: '2-digit', timeZone: 'Asia/Shanghai',
 }).format(updatedAt);
+const footerLinks = [
+  { label: 'Google Scholar', url: links.scholar },
+  { label: 'ORCID', url: links.orcid },
+  { label: 'MAC Lab', url: links.lab },
+];
 ---
 
-<footer class="site-footer">
-  <div class="shell footer-inner">
-    <div class="footer-signoff">
-      <p class="eyebrow">{locale === 'zh' ? '联系' : 'Contact'}</p>
-      <h2>{copy.contactTitle}</h2>
-      <p>{copy.contactBody}</p>
-      <a class="text-link" href={links.email}>
-        <Mail size={17} stroke-width={1.8} aria-hidden="true" />
+<footer class="site-footer academic-footer">
+  <div class="shell academic-footer-inner">
+    <div class="academic-footer-top">
+      <a class="academic-footer-email" href={links.email}>
+        <Mail size={15} stroke-width={1.7} aria-hidden="true" />
         cw501907@gmail.com
       </a>
-    </div>
-    <div class="footer-meta">
-      <div class="footer-links">
-        {sources.map((source) => (
-          <a href={source.url} target="_blank" rel="noreferrer">
-            {source.label}<ArrowUpRight size={13} aria-hidden="true" />
-          </a>
+      <div class="academic-footer-links" aria-label={locale === 'zh' ? '学术主页链接' : 'Academic links'}>
+        {footerLinks.map((source) => (
+          <a href={source.url} target="_blank" rel="noreferrer">{source.label}<ArrowUpRight size={12} aria-hidden="true" /></a>
         ))}
       </div>
-      <div class="site-stats" aria-label={locale === 'zh' ? '网站信息' : 'Site information'}>
+    </div>
+    <VisitorCountries locale={locale} />
+    <div class="academic-footer-bottom">
+      <p>© {new Intl.DateTimeFormat('en', { year: 'numeric', timeZone: 'Asia/Shanghai' }).format(updatedAt)} {locale === 'zh' ? '陈旺 · Wang Chen' : 'Wang Chen'} · Xiamen, China</p>
+      <div class="academic-site-stats" aria-label={locale === 'zh' ? '网站信息' : 'Site information'}>
         <span>{copy.siteUpdated} <time datetime={updatedIso}>{updatedLabel}</time></span>
-        <span class="traffic-count">{copy.siteViews} <strong id="vercount_value_site_pv">—</strong></span>
-        <span class="traffic-count">{copy.siteVisitors} <strong id="vercount_value_site_uv">—</strong></span>
-        <span class="traffic-local">{locale === 'zh' ? '本地预览不计数' : 'Local previews are not counted'}</span>
       </div>
-      <p>© {new Date().getFullYear()} Wang Chen · Xiamen, China</p>
     </div>
   </div>
 </footer>
+
+<style>
+  .academic-footer { padding-block: 26px 25px; border-top: 1px solid var(--line, #e3e8ec); background: rgb(255 255 255 / 65%); color: var(--muted, #6b7785); }
+  .academic-footer-inner { display: grid; gap: 15px; }
+  .academic-footer-top, .academic-footer-bottom { display: flex; align-items: center; justify-content: space-between; gap: 14px 30px; flex-wrap: wrap; }
+  .academic-footer a { color: #244d70; font-size: 14px; text-decoration: none; }
+  .academic-footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .academic-footer-email, .academic-footer-links a { display: inline-flex; align-items: center; gap: 6px; }
+  .academic-footer-links { display: flex; gap: 9px 22px; flex-wrap: wrap; }
+  .academic-footer-bottom p { margin: 0; font-size: 14px; line-height: 1.8; }
+  .academic-site-stats { display: flex; flex-wrap: wrap; gap: 6px 17px; font-size: 14px; line-height: 1.8; }
+  .academic-site-stats strong, .academic-site-stats time { font-weight: 450; }
+  @media (max-width: 600px) {
+    .academic-footer { padding-block: 24px; }
+    .academic-footer-top, .academic-footer-bottom { align-items: flex-start; flex-direction: column; gap: 11px; }
+    .academic-footer-links { gap: 12px 22px; }
+    .academic-footer a { min-height: 24px; }
+  }
+</style>

@@ -13,7 +13,7 @@ const formal = publications.filter((item) => !item.venue.includes('preprint'));
 const preprints = publications.filter((item) => item.venue.includes('preprint'));
 ---
 <BaseLayout title={title} description={description} locale={locale}>
-  <InnerHero eyebrow="Publications" title={locale === 'zh' ? '论文与预印本' : 'Papers and preprints'} description={description} />
+  <InnerHero eyebrow="Publications" title={locale === 'zh' ? '论文与预印本' : 'Papers and preprints'} />
   <section class="publication-page shell">
     <div class="publication-group">
       <div class="group-title"><span>01</span><h2>{locale === 'zh' ? '会议论文' : 'Conference papers'}</h2></div>
@@ -23,6 +23,5 @@ const preprints = publications.filter((item) => item.venue.includes('preprint'))
       <div class="group-title"><span>02</span><h2>{locale === 'zh' ? '预印本' : 'Preprints'}</h2></div>
       <div class="publication-list">{preprints.map((publication) => <PublicationRow publication={publication} locale={locale} />)}</div>
     </div>
-    <p class="publication-note">{locale === 'zh' ? '作者顺序与发表状态按论文页面核对。* 表示共同贡献。预印本不会以投稿中的会议名称标注。' : 'Author order and publication status are checked against the paper pages. * denotes equal contribution. Preprints are not labeled with withdrawn or pending submission venues.'}</p>
   </section>
 </BaseLayout>

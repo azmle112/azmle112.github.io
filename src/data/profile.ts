@@ -10,7 +10,8 @@ export const links = {
   scholar: 'https://scholar.google.com/citations?user=POf8d3UAAAAJ&hl=en',
   orcid: 'https://orcid.org/0009-0005-2574-5230',
   lab: 'https://mac.xmu.edu.cn/',
-  cv: '/files/cv-zh.pdf',
+  liujuanCao: 'https://mac.xmu.edu.cn/ljcao/',
+  xiawuZheng: 'https://zhengxiawu.github.io/',
   wechat: 'https://mp.weixin.qq.com/s/kKNY5tE6aczIX5T0UglUwQ',
 };
 
@@ -18,81 +19,26 @@ export const profile = {
   name: { zh: '陈旺', en: 'Wang Chen' },
   nameLatin: 'Wang Chen',
   title: {
-    zh: '厦门大学 MAC 实验室人工智能方向博士生',
-    en: 'Ph.D. student in AI at Xiamen University MAC Lab',
-  },
-  internship: {
-    zh: '2026 年 5 月起在高德地图（阿里巴巴集团）实习',
-    en: 'Research intern at AMap, Alibaba Group, since May 2026',
+    zh: '厦门大学 MAC 实验室一年级博士生',
+    en: 'First-year PhD student at MAC Lab, Xiamen University',
   },
   intro: {
-    zh: '我研究长时程视觉信息怎样进入多模态模型，也关心生成能否帮助模型理解世界。眼下的问题很具体。模型该怎样从连续视频中保留事件结构，怎样生成可检查的候选解释，又怎样回到原始证据里修正它们。',
-    en: 'I study how long-horizon visual information should enter multimodal models, and how generation can help a model understand the world. My current questions are concrete: how to preserve event structure in continuous video, generate inspectable candidate explanations, and return to the original evidence to revise them.',
-  },
-  wechatNote: {
-    zh: '公众号「AI骇客」也是我偶尔运营的',
-    en: 'I also occasionally run the WeChat account AI Hacker',
+    zh: '陈旺，厦门大学 MAC 实验室一年级博士生，研究长时程视觉理解与多模态模型。',
+    en: 'Wang Chen is a first-year PhD student at MAC Lab, Xiamen University, working on long-horizon visual understanding and multimodal models.',
   },
   visionTitle: {
-    zh: '理解不断展开的世界',
-    en: 'Understanding a world in motion',
+    zh: '长时程视觉理解与世界建模',
+    en: 'Long-horizon visual understanding and world modeling',
+  },
+  researchIntro: {
+    zh: '我的研究聚焦于长时程视觉理解与多模态模型。我关注视觉系统如何在有限的计算与记忆资源下，选择重要观测、维护长期状态，并从持续的视频流中理解对象、事件及其关系。',
+    en: 'My research focuses on long-horizon visual understanding and multimodal models. I study how visual systems can select informative observations and maintain state over time, so they can understand objects, events, and their relationships in continuous video streams under limited compute and memory.',
   },
   vision: {
-    zh: '我希望构建能在现实时间尺度上持续看见、组织并理解多模态信息的系统。研究从长视频中的事件结构出发，进一步探究生成怎样提出可检验的假设，以及模型怎样在持续到来的视觉流中积累而不遗失证据。',
-    en: 'I want to build multimodal systems that can keep seeing, organizing, and understanding information over real-world time scales. The path starts with event structure in long video, then asks how generation can propose testable hypotheses and how a model can accumulate evidence without losing it as a visual stream continues.',
+    zh: '在此基础上，我希望进一步探索视觉理解与世界建模之间的联系：从理解已经发生的事件，走向建模环境如何随时间变化，并利用预测辅助感知与推理。长期目标是研究能够持续观察、持续更新、持续推理的视觉智能系统，使模型随着新的观测不断修正和丰富其对世界的认识。',
+    en: 'Building on this work, I want to explore the connection between visual understanding and world modeling: how a system can move from interpreting past events to modeling how its environment changes, and use prediction to support perception and reasoning. My long-term goal is visual intelligence that observes, updates, and reasons continuously, revising and enriching its understanding of the world as new evidence arrives.',
   },
 };
-
-export const visionParagraphs = [
-  {
-    zh: '现实中的视觉经验很少被整齐地切成一张张图片。一次实验、一段旅程或一场比赛会持续很久，真正影响判断的线索却只在少数时刻出现。模型需要知道哪里发生了变化，也要记得这些变化前后怎样相连。我的第一条研究线索由此展开。我尝试把视频里的语义边界、事件锚点和查询相关信息组织起来，让有限输入保留足够完整的故事。',
-    en: 'Visual experience in the real world rarely arrives as a tidy stack of independent images. An experiment, a journey, or a match can last for hours, while the evidence that changes a judgment may appear only briefly. A model has to notice when an event changes and remember how those changes connect. This motivates my first research thread: organizing semantic boundaries, event anchors, and query-relevant information so that a finite input still retains a coherent account of what happened.',
-  },
-  {
-    zh: '生成给这条路线补上了另一种可能。模型可以先提出事件描述、缺失状态或未来走向，再回到观测中寻找支持与冲突。这样的生成结果只是一组候选，价值来自它让模糊的内部状态变得可以检查。一个候选若找不到时间位置、视觉实体或前后因果的支持，就应该被修改或舍弃。理解因此有了可操作的中间对象。',
-    en: 'Generation adds another possibility. A model can propose an event description, a missing state, or a possible future, then return to its observations to look for support and contradiction. These generations are candidates rather than evidence. Their value lies in turning an ambiguous internal state into something that can be inspected. If a candidate cannot be grounded in time, entities, or causal order, it should be revised or rejected.',
-  },
-  {
-    zh: '我最终想做的系统，应当能一边接收持续到来的视频，一边维护对事件的当前理解。它知道哪些内容已经确认，哪些仍是假设，旧证据在什么时候需要重新查看。模型给出的答案只是这一过程的一个出口。更重要的是，答案背后的事件表示能够随着新信息到来继续更新，并保留足够清楚的证据来路。',
-    en: 'The system I ultimately want to build should maintain a working account of events while video keeps arriving. It should know what has been confirmed, what remains hypothetical, and when earlier evidence needs to be revisited. An answer is only one output of this process. More important is an event representation that can keep changing with new information while preserving where its evidence came from.',
-  },
-];
-
-export const researchSteps = [
-  {
-    number: '01',
-    key: 'observe',
-    title: { zh: '看见', en: 'Observe' },
-    subtitle: { zh: '从连续视觉流中找到结构', en: 'Find structure in continuous visual streams' },
-    body: {
-      zh: '把视频当作事件沿时间展开，而非彼此孤立的帧。语义边界、事件锚点和长期记忆共同决定模型究竟看见了什么。',
-      en: 'Treat video as events unfolding in time rather than isolated frames. Semantic boundaries, event anchors, and long-term memory determine what the model actually sees.',
-    },
-    refs: ['EFS', 'WFS-SB'],
-  },
-  {
-    number: '02',
-    key: 'propose',
-    title: { zh: '生成', en: 'Propose' },
-    subtitle: { zh: '把模糊理解变成可检查的候选', en: 'Turn an uncertain reading into inspectable candidates' },
-    body: {
-      zh: '让模型生成事件描述、缺失状态或可能的未来，把尚未成形的判断写成能够被定位、比较和否证的中间对象。',
-      en: 'Generate event descriptions, missing states, or possible futures so an unfinished judgment becomes an intermediate object that can be localized, compared, and falsified.',
-    },
-    refs: ['Generative understanding', 'Hypothesis grounding'],
-  },
-  {
-    number: '03',
-    key: 'verify',
-    title: { zh: '核验', en: 'Verify' },
-    subtitle: { zh: '让理解随着证据继续更新', en: 'Let understanding keep changing with evidence' },
-    body: {
-      zh: '把候选重新放回时间线和原始视觉证据中检查。保留得到支持的部分，修正冲突之处，并在长时程场景里持续更新事件记忆。',
-      en: 'Place each candidate back on the timeline and against the original visual evidence. Keep what is supported, revise conflicts, and update event memory over long horizons.',
-    },
-    refs: ['Evidence tracing', 'Streaming video understanding'],
-  },
-];
 
 export const publications = [
   {
@@ -282,61 +228,69 @@ export const publications = [
   },
 ];
 
-export const ongoing = [
-  {
-    index: 'A',
-    title: { zh: '生成怎样帮助理解', en: 'How generation can help understanding' },
-    body: {
-      zh: '研究生成目标、内部生成特征与候选假设怎样暴露模型尚未理解的部分，再用原始观测定位、核验和修正。',
-      en: 'Studying how generative objectives, internal features, and candidate hypotheses can expose what a model has not yet understood, then using observations to ground, test, and revise them.',
-    },
-  },
-  {
-    index: 'B',
-    title: { zh: '长时程流式视频理解', en: 'Long-horizon streaming video understanding' },
-    body: {
-      zh: '面向持续到来的视频，探索分层记忆、事件更新与证据回看，使模型在低延迟约束下保持长期理解。',
-      en: 'Exploring hierarchical memory, event updates, and evidence revisiting so models can sustain long-term understanding under low-latency constraints.',
-    },
-  },
-];
-
 export const news = [
   {
     date: '2026.09',
-    text: { zh: '进入厦门大学人工智能博士阶段，开始新的 PhD 生活。', en: 'Beginning the Ph.D. stage in Artificial Intelligence at Xiamen University.' },
+    text: { zh: '正式开启 PhD student 新生活！', en: 'Starting my first year as a PhD student!' },
   },
   {
     date: '2026.05',
-    text: { zh: '加入高德地图（阿里巴巴集团）实习，关注多模态与视频理解。', en: 'Started an internship at AMap, Alibaba Group, working on multimodal and video understanding.' },
+    text: { zh: '加入高德地图（阿里巴巴集团）实习。', en: 'Joined AMap, Alibaba Group, as a research intern.' },
   },
   {
-    date: '2026.03',
-    text: { zh: 'WFS-SB 被 CVPR 2026 接收，代码已开源。', en: 'WFS-SB was accepted to CVPR 2026 and the code was released.' },
+    // Author notification: 30 April 2026, https://icml.cc/Conferences/2026/Dates
+    date: '2026.04',
+    text: { zh: '🎉 1 篇论文（LLM Orchestration）被 ICML 2026 接收。', en: '🎉 1 paper (LLM Orchestration) has been accepted to ICML 2026.' },
   },
   {
-    date: '2026.03',
-    text: { zh: 'QuoTA 发表在 AAAI 2026。', en: 'QuoTA appeared at AAAI 2026.' },
+    // Final decisions: 20 February 2026, https://cvpr.thecvf.com/Conferences/2026/Dates
+    date: '2026.02',
+    text: { zh: '🎉 1 篇论文（WFS-SB）被 CVPR 2026 接收。', en: '🎉 1 paper (WFS-SB) has been accepted to CVPR 2026.' },
+  },
+  {
+    // Main-track final notification: 8 November 2025, https://aaai.org/conference/aaai/aaai-26/
+    date: '2025.11',
+    text: { zh: '🎉 1 篇论文（QuoTA）被 AAAI 2026 接收。', en: '🎉 1 paper (QuoTA) has been accepted to AAAI 2026.' },
   },
 ];
 
 export const experience = [
   {
+    startDate: '2026-09',
+    kind: 'education',
+    logo: '/images/institutions/xmu.jpg',
+    organization: { zh: '厦门大学', en: 'Xiamen University' },
+    role: { zh: '计算机科学与技术 · 在读', en: 'Computer Science and Technology · PhD in progress' },
     period: { zh: '2026.09 起', en: 'From Sep 2026' },
-    title: { zh: '厦门大学 · 人工智能 · 博士阶段', en: 'Xiamen University · AI · Ph.D. stage' },
-    detail: { zh: 'MAC 实验室，导师曹刘娟教授、郑侠武副教授', en: 'MAC Lab, advised by Prof. Liujuan Cao and Assoc. Prof. Xiawu Zheng' },
+    title: { zh: '厦门大学 · 计算机科学与技术 · 在读', en: 'Xiamen University · PhD in Computer Science and Technology (in progress)' },
+    detail: { zh: '', en: '' },
   },
   {
+    startDate: '2024-09',
+    kind: 'education',
+    logo: '/images/institutions/xmu.jpg',
+    organization: { zh: '厦门大学', en: 'Xiamen University' },
+    role: { zh: '人工智能 · 硕士', en: "Artificial Intelligence · Master's" },
     period: { zh: '2024.09 - 2026.08', en: 'Sep 2024 - Aug 2026' },
-    title: { zh: '厦门大学 · 人工智能 · 硕博连读阶段', en: 'Xiamen University · AI · M.S.-Ph.D. track' },
-    detail: { zh: '在长视频理解与多模态推理方向开展研究', en: 'Research in long-video understanding and multimodal reasoning' },
+    title: { zh: '厦门大学 · 人工智能 · 硕士', en: "Xiamen University · Master's in Artificial Intelligence" },
+    detail: { zh: '', en: '' },
   },
   {
+    startDate: '2026-05',
+    kind: 'internship',
+    logo: '/images/institutions/amap.png',
+    organization: { zh: '高德地图 · 阿里巴巴集团', en: 'AMap · Alibaba Group' },
+    role: { zh: '研究实习', en: 'Research internship' },
     period: { zh: '2026.05 至今', en: 'May 2026 - Present' },
     title: { zh: '高德地图 · 阿里巴巴集团 · 实习', en: 'AMap · Alibaba Group · Internship' },
     detail: { zh: '多模态与视频理解方向', en: 'Multimodal and video understanding' },
   },
   {
+    startDate: '2020-09',
+    kind: 'education',
+    logo: '/images/institutions/fzu.jpg',
+    organization: { zh: '福州大学', en: 'Fuzhou University' },
+    role: { zh: '人工智能 · 学士', en: 'Artificial Intelligence · B.Eng.' },
     period: { zh: '2020.09 - 2024.06', en: 'Sep 2020 - Jun 2024' },
     title: { zh: '福州大学 · 人工智能 · 学士', en: 'Fuzhou University · AI · B.Eng.' },
     detail: { zh: '本科阶段开始研究生成式视觉与人脸美学', en: 'Began research in generative vision and facial aesthetics' },

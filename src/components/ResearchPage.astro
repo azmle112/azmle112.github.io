@@ -1,67 +1,41 @@
 ---
-import { ArrowDownRight } from '@lucide/astro';
 import type { Locale } from '../data/profile';
-import { ongoing, profile, publications, researchSteps, visionParagraphs } from '../data/profile';
+import { profile, publications } from '../data/profile';
 import { localize } from '../lib/i18n';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import InnerHero from './InnerHero.astro';
 import PublicationRow from './PublicationRow.astro';
+import ResearchVision from './ResearchVision.astro';
 
 interface Props { locale: Locale }
 const { locale } = Astro.props;
 const title = locale === 'zh' ? '研究 | 陈旺' : 'Research | Wang Chen';
-const description = localize(profile.vision, locale);
+const description = localize(profile.researchIntro, locale);
 ---
 <BaseLayout title={title} description={description} locale={locale}>
   <InnerHero eyebrow="Research" title={localize(profile.visionTitle, locale)} description={description} />
-  <section class="shell research-manifesto" aria-label={locale === 'zh' ? '研究愿景' : 'Research vision'}>
-    <p class="manifesto-lead">{locale === 'zh' ? '我想让模型在现实时间尺度上形成能够继续修正的理解。下面三段话，说明这条路线为何从长视频出发，又为何走向生成与证据核验。' : 'I want models to form an understanding that remains revisable over real-world time scales. These three passages explain why the path begins with long video and leads toward generation and evidence checking.'}</p>
-    <div class="manifesto-grid">
-      {visionParagraphs.map((paragraph, index) => (
-        <article><span>0{index + 1}</span><p>{localize(paragraph, locale)}</p></article>
-      ))}
-    </div>
+  <section class="shell research-overview" aria-label={locale === 'zh' ? '研究愿景' : 'Research vision'}>
+    <p>{localize(profile.vision, locale)}</p>
+    <ResearchVision locale={locale} />
   </section>
-  <section class="shell research-narrative" aria-label={locale === 'zh' ? '研究路线' : 'Research path'}>
-    {researchSteps.map((step) => (
-      <article class="research-chapter">
-        <div class="chapter-marker">
-          <span>{step.number}</span>
-          <ArrowDownRight size={21} stroke-width={1.5} aria-hidden="true" />
-        </div>
-        <div>
-          <p class="eyebrow">{localize(step.title, locale)}</p>
-          <h2>{localize(step.subtitle, locale)}</h2>
-        </div>
-        <div class="chapter-body">
-          <p>{localize(step.body, locale)}</p>
-          <div class="step-refs">{step.refs.map((ref) => <span>{ref}</span>)}</div>
-        </div>
-      </article>
-    ))}
-  </section>
-  <section class="section research-featured shell">
+  <section class="section research-featured shell" aria-labelledby="research-publications-title">
     <div class="section-heading">
-      <p class="eyebrow">Evidence</p>
-      <h2>{locale === 'zh' ? '已有工作怎样接上这条路线' : 'How the published work supports this path'}</h2>
-      <p>{locale === 'zh' ? '论文依次处理事件结构、查询相关预算和语义边界。它们也是下一步研究的技术起点。' : 'The papers address event structure, query-aware budgets, and semantic boundaries. They are also the technical starting points for what comes next.'}</p>
+      <p class="eyebrow">Publications</p>
+      <h2 id="research-publications-title">{locale === 'zh' ? '代表论文' : 'Selected publications'}</h2>
     </div>
     <div class="publication-list">
       {publications.filter((item) => item.featured).map((publication) => <PublicationRow publication={publication} locale={locale} />)}
     </div>
   </section>
-  <section class="section ongoing-band">
-    <div class="shell ongoing-grid">
-      <div class="ongoing-intro">
-        <p class="eyebrow accent">Ongoing</p>
-        <h2>{locale === 'zh' ? '从选取证据走向生成、核验与持续理解' : 'From evidence selection to generation, verification, and sustained understanding'}</h2>
-        <p>{locale === 'zh' ? '接下来的工作会把长视频里的事件结构与生成模型连接起来，并让每个候选解释回到观测中接受检查。' : 'The next projects connect event structure in long video with generative models, then return every candidate explanation to the observations for testing.'}</p>
-      </div>
-      <div class="ongoing-items">
-        {ongoing.map((item) => (
-          <article><span>{item.index}</span><h3>{localize(item.title, locale)}</h3><p>{localize(item.body, locale)}</p></article>
-        ))}
-      </div>
-    </div>
-  </section>
 </BaseLayout>
+
+<style>
+  .research-overview { padding-block: 42px 0; }
+  .research-overview > p { max-width: 860px; margin: 0 0 24px; color: var(--ink-soft); font-size: 18px; line-height: 1.9; }
+  .research-featured { padding-top: 66px; }
+  @media (max-width: 600px) {
+    .research-overview { padding-top: 30px; }
+    .research-overview > p { font-size: 16px; }
+    .research-featured { padding-top: 46px; }
+  }
+</style>

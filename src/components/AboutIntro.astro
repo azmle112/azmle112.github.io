@@ -1,0 +1,35 @@
+---
+import type { Locale } from '../data/profile';
+import { links, profile } from '../data/profile';
+import { localize } from '../lib/i18n';
+import ResearchVision from './ResearchVision.astro';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const researchEmphasis = locale === 'zh' ? '长时程视觉理解与多模态模型' : 'long-horizon visual understanding and multimodal models';
+const visionEmphasis = locale === 'zh'
+  ? ['视觉理解与世界建模之间的联系', '持续观察、持续更新、持续推理']
+  : ['the connection between visual understanding and world modeling', 'observes, updates, and reasons continuously'];
+const researchParts = localize(profile.researchIntro, locale).split(new RegExp(`(${researchEmphasis})`));
+const visionParts = localize(profile.vision, locale).split(new RegExp(`(${visionEmphasis.join('|')})`));
+---
+
+<div class="about-intro">
+  {locale === 'zh' ? (
+    <p class="about-biography">我是厦门大学 <a href={links.lab} target="_blank" rel="noreferrer"><strong>MAC 实验室</strong></a>的一年级博士生，导师是 <a href={links.liujuanCao} target="_blank" rel="noreferrer"><strong>曹刘娟教授</strong></a>和 <a href={links.xiawuZheng} target="_blank" rel="noreferrer"><strong>郑侠武副教授</strong></a>。</p>
+  ) : (
+    <p class="about-biography">I am a first-year PhD student at <a href={links.lab} target="_blank" rel="noreferrer"><strong>MAC Lab</strong></a>, Xiamen University, advised by <a href={links.liujuanCao} target="_blank" rel="noreferrer"><strong>Prof. Liujuan Cao</strong></a> and <a href={links.xiawuZheng} target="_blank" rel="noreferrer"><strong>Assoc. Prof. Xiawu Zheng</strong></a>.</p>
+  )}
+  <p>{researchParts.map((part) => part === researchEmphasis ? <strong>{part}</strong> : part)}</p>
+  <p>{visionParts.map((part) => visionEmphasis.includes(part) ? <strong>{part}</strong> : part)}</p>
+  <ResearchVision locale={locale} />
+</div>
+
+<style>
+  .about-intro > p { margin-bottom: 16px; color: var(--ink-soft); font-size: 17px; line-height: 1.95; }
+  .about-intro > .about-biography { color: var(--ink); margin-bottom: 22px; }
+  .about-intro a { color: var(--pine); text-decoration: none; }
+  .about-intro a:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .about-intro strong { font-weight: 650; }
+  @media (max-width: 520px) { .about-intro > p { font-size: 16px; line-height: 1.9; } }
+</style>

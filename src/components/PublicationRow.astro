@@ -1,18 +1,19 @@
 ---
 import { ArrowUpRight } from '@lucide/astro';
-import type { Locale } from '../data/profile';
+import type { Locale, publications } from '../data/profile';
 import { localize } from '../lib/i18n';
 
 interface Props {
-  publication: any;
+  publication: (typeof publications)[number];
   locale: Locale;
+  compact?: boolean;
 }
 
-const { publication, locale } = Astro.props;
+const { publication, locale, compact = false } = Astro.props;
 const authorParts = publication.authors.split('Wang Chen');
 ---
 
-<article class="publication-row">
+<article class:list={['publication-row', { 'publication-compact': compact }]}>
   <div class="publication-media">
     <img
       class:list={{ 'publication-image-expanded': publication.key === 'face-beautification' }}
@@ -26,7 +27,7 @@ const authorParts = publication.authors.split('Wang Chen');
   </div>
   <div class="publication-copy">
     <p class="venue">{publication.venue}</p>
-    <h3>{publication.title}</h3>
+    <h3><a href={publication.links[0].url} target="_blank" rel="noreferrer">{publication.title}</a></h3>
     <p class="authors">
       {authorParts[0]}<strong>Wang Chen</strong>{authorParts.slice(1).join('Wang Chen')}
     </p>
@@ -40,3 +41,31 @@ const authorParts = publication.authors.split('Wang Chen');
     </div>
   </div>
 </article>
+
+<style>
+  .publication-copy h3 a { text-decoration: none; }
+  .publication-copy h3 a:hover { color: var(--pine); }
+  .publication-compact { grid-template-columns: 205px minmax(0, 1fr); gap: 26px; padding: 27px 0; }
+  .publication-compact:last-child { padding-bottom: 0; border-bottom: 0; }
+  .publication-compact .publication-media { margin-top: 4px; border: 1px solid var(--line); background: white; aspect-ratio: 4 / 3; border-radius: 4px; }
+  .publication-compact .publication-media img { padding: 5px; object-fit: contain; }
+  .publication-compact .publication-year { display: none; }
+  .publication-compact .publication-copy { align-self: start; }
+  .publication-compact .venue { display: inline-block; margin: 0 0 9px; padding: 2px 7px; border-radius: 2px; background: var(--pine-soft); color: var(--pine-dark); font-size: 13px; font-weight: 600; text-transform: none; }
+  .publication-compact .publication-copy h3 { margin-bottom: 8px; font-family: var(--sans); font-size: 19px; font-weight: 600; line-height: 1.5; }
+  .publication-compact .authors { margin-bottom: 9px; font-size: 14px; line-height: 1.7; }
+  .publication-compact .publication-summary { margin-bottom: 11px; font-size: 15px; line-height: 1.8; }
+  .publication-compact .publication-links { gap: 8px; }
+  .publication-compact .publication-links a { gap: 4px; padding: 2px 8px; border: 1px solid var(--line-dark); border-radius: 3px; font-size: 13px; font-weight: 550; }
+  .publication-compact .publication-links a:hover { background: var(--pine-soft); border-color: var(--pine); }
+  @media (max-width: 1080px) and (min-width: 801px) {
+    .publication-compact { grid-template-columns: 155px minmax(0, 1fr); gap: 20px; }
+  }
+  @media (max-width: 600px) {
+    .publication-compact { grid-template-columns: 1fr; gap: 17px; }
+    .publication-compact .publication-media { width: 100%; height: 180px; aspect-ratio: auto; margin-top: 0; }
+    .publication-compact .publication-media img { padding: 10px; }
+    .publication-compact .publication-copy h3 { font-size: 17px; }
+    .publication-compact .publication-links a { min-height: 32px; padding: 4px 10px; font-size: 14px; }
+  }
+</style>
